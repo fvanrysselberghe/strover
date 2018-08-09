@@ -1,0 +1,69 @@
+@page
+@model vlaaienslag.Pages.Orders.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Order</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <!-- Address of buyer details -->
+            <div class="form-group">
+                <label asp-for="Buyer.Name" class="control-label"></label>
+                <input asp-for="Buyer.Name" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Buyer.TelephoneNumber" class="control-group"></label>
+                <input asp-for="Buyer.TelephoneNumber" class="form-control" />
+            </div>
+            <hr />
+            
+            <!-- delivery details #TODO switching delivery methods looks like a javascript thing
+            <div class="form-group">
+                <label class="control-label">.haalt zelf af</label></div>
+            <label>levering aan huis</label>
+            <label>straat + nr</label>
+            <label>gemeente</label>
+                <label>opmerkingen voor levering</label>
+-->
+
+            <!-- Order selection --> 
+            @for (int i = 0; i < Model.ProductIds.Count; ++i) {
+                <div class="form-group">
+                    <label class="control-label">@Model.ProductIds[i]</label>
+                    <input type="hidden" asp-for="ProductIds[i]" class="form-control" />                    
+                    <input asp-for="OrderedQuantities[i]" class="form-control"/>
+                </div>
+            }
+            <label>totaal</label> 
+
+            <hr />
+            <div class="form-group">
+                <label class="control-label" asp-for="Seller.Name"></label>
+                <input class="form-control" asp-for="Seller.Name"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="Seller.Division"></label><!-- #TODO how to make this content dependent -->
+                <input class="form-control" asp-for="Seller.Division"/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
