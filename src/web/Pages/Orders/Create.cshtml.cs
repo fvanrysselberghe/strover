@@ -57,10 +57,25 @@ namespace vlaaienslag.Pages.Orders
                 return Page();
             }
 
-            //! Create a new Order to contain the orderlines
-            var buyerId = "jos peeters";
-            var sellerId = "karel kweetniet";
+            _service.RegisterOrder(asOrderRequest()); //&address &delivery or register order, add delivery & accept order? add action dimension
 
+            return RedirectToPage("./Index");
+        }
+
+
+        private OrderRequest asOrderRequest()
+        {
+            var request = new OrderRequest();
+            request.Buyer = this.Buyer;
+            request.Seller = this.Seller;
+
+            request.Items = createItemSelection();
+
+            return request;
+        }
+
+        private IDictionary<string, uint> createItemSelection()
+        {
             var itemSelection = new Dictionary<string, uint>();
             var nbrProducts = ProductIds.Count;
             for (var index = 0; index < nbrProducts; ++index)
@@ -68,10 +83,8 @@ namespace vlaaienslag.Pages.Orders
                 if (OrderedQuantities[index] > 0)
                     itemSelection.Add(ProductIds[index], OrderedQuantities[index]);
             }
-            _service.RegisterOrder(buyerId, sellerId, itemSelection); //&address &delivery or register order, add delivery & accept order? add action dimension
 
-            return RedirectToPage("./Index");
+            return itemSelection;
         }
-
     }
 }

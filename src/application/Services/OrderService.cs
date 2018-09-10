@@ -14,7 +14,7 @@ namespace vlaaienslag.Application.Services
             orderRepository = repository;
         }
 
-        public void RegisterOrder(string buyerId, string sellerId, Dictionary<string, uint> selection)
+        public void RegisterOrder(string buyerId, string sellerId, IDictionary<string, uint> selection)
         {
             var newOrder = new Order();
 
@@ -23,6 +23,12 @@ namespace vlaaienslag.Application.Services
 
             orderRepository.Add(newOrder);
             //await _context.SaveChangesAsync();
+        }
+
+        public void RegisterOrder(OrderRequest request)
+        {
+            RegisterOrder(request.Buyer.ID, request.Seller.ID, request.Items);
+
         }
     }
 }
