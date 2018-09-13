@@ -8,10 +8,14 @@ namespace vlaaienslag.Application.Services
     public class OrderService : IOrderService
     {
         private IOrderRepository orderRepository = null;
+        private IBuyerRepository buyerRepository = null;
+        private ISellerRepository sellerRepository = null;
 
-        public OrderService(IOrderRepository repository)
+        public OrderService(IOrderRepository orders, IBuyerRepository buyers, ISellerRepository sellers)
         {
-            orderRepository = repository;
+            orderRepository = orders;
+            buyerRepository = buyers;
+            sellerRepository = sellers;
         }
 
         public void RegisterOrder(string buyerId, string sellerId, IDictionary<string, uint> selection)
@@ -22,11 +26,14 @@ namespace vlaaienslag.Application.Services
             newOrder.SellerId = sellerId;
 
             orderRepository.Add(newOrder);
-            //await _context.SaveChangesAsync();
         }
 
         public void RegisterOrder(OrderRequest request)
         {
+            buyerRepository.Add(request.Buyer);
+
+            sellerRepository.Add(request.Seller);
+
             RegisterOrder(request.Buyer.ID, request.Seller.ID, request.Items);
 
         }

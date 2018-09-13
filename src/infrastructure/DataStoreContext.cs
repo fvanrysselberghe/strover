@@ -10,5 +10,7 @@ namespace vlaaienslag.Models
 
         public DbSet<Order> Order { get; set; }
         public DbSet<Product> Product { get; set; }
+        public DbSet<Customer> Buyer { get; set; }
+        public DbSet<SalesPerson> Seller { get; set; }
     }
 }

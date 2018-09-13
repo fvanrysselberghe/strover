@@ -38,6 +38,8 @@ namespace vlaaienslag
             services.AddDbContext<DataStoreContext>(options => options.UseInMemoryDatabase("myDatabase"));
 
             services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<ISellerRepository, SellerRepository>();
+            services.AddTransient<IBuyerRepository, BuyerRepository>();
             services.AddTransient<IOrderService, OrderService>();
         }
 
