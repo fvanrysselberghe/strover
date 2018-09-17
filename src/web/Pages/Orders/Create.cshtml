@@ -14,7 +14,7 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             
-            <!-- Address of buyer details -->
+            <!-- Buyer details -->
             <div class="form-group">
                 <label asp-for="Buyer.Name" class="control-label"></label>
                 <input asp-for="Buyer.Name" class="form-control"/>
@@ -25,14 +25,29 @@
             </div>
             <hr />
             
-            <!-- delivery details #TODO switching delivery methods looks like a javascript thing
+            <!-- delivery details -->
+            <!-- #TODO switching delivery methods can be more elegant, 
+                e.g. javascript switching on/off visibility depending on the method-->
             <div class="form-group">
-                <label class="control-label">.haalt zelf af</label></div>
-            <label>levering aan huis</label>
-            <label>straat + nr</label>
-            <label>gemeente</label>
-                <label>opmerkingen voor levering</label>
--->
+                <label asp-for="Pickup" class="control-label"></label>
+                <input asp-for="Pickup" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="DeliveryAddress.Street" class="control-label"></label>
+                <input asp-for="DeliveryAddress.Street" class="form-control"/>
+            </div>  
+            <div class="form-group">
+                <label asp-for="DeliveryAddress.Number" class="control-label"></label>
+                <input asp-for="DeliveryAddress.Number" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeliveryAddress.City" class="control-label"></label>
+                <input asp-for="DeliveryAddress.City" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="DeliveryComments" class="control-label"></label>
+                <input asp-for="DeliveryComments" class="form-control" />
+            </div>         
 
             <!-- Order selection --> 
             @for (int i = 0; i < Model.ProductIds.Count; ++i) {
@@ -44,6 +59,7 @@
             }
             <label>totaal</label> 
 
+            <!-- Seller details -->
             <hr />
             <div class="form-group">
                 <label class="control-label" asp-for="Seller.Name"></label>

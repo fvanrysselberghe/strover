@@ -42,6 +42,16 @@ namespace vlaaienslag.Pages.Orders
         [BindProperty]
         public SalesPerson Seller { get; set; }
 
+        // Group into Model
+        [BindProperty]
+        public bool Pickup {get; set; }
+
+        [BindProperty]
+        public Address DeliveryAddress {get; set; }
+
+        [BindProperty]
+        public String DeliveryComments {get; set;}
+
         // Group into model
         [BindProperty]
         public List<String> ProductIds { get; set; }
