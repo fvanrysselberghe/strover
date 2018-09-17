@@ -44,13 +44,13 @@ namespace vlaaienslag.Pages.Orders
 
         // Group into Model
         [BindProperty]
-        public bool Pickup {get; set; }
+        public bool Pickup { get; set; }
 
         [BindProperty]
-        public Address DeliveryAddress {get; set; }
+        public Address DeliveryAddress { get; set; }
 
         [BindProperty]
-        public String DeliveryComments {get; set;}
+        public String DeliveryComments { get; set; }
 
         // Group into model
         [BindProperty]
@@ -78,10 +78,22 @@ namespace vlaaienslag.Pages.Orders
             var request = new OrderRequest();
             request.Buyer = this.Buyer;
             request.Seller = this.Seller;
-
+            request.DeliveryMethod = createDeliveryDetails();
             request.Items = createItemSelection();
 
             return request;
+        }
+
+        private DeliveryMethod createDeliveryDetails()
+        {
+            var delivery = new DeliveryMethod()
+            {
+                DeliveryType = Pickup ? DeliveryType.Pickup : DeliveryType.Delivery,
+                DeliveryAddress = DeliveryAddress,
+                Comments = DeliveryComments
+            };
+
+            return delivery;
         }
 
         private IDictionary<string, uint> createItemSelection()
