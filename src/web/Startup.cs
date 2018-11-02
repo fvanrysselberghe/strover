@@ -26,23 +26,30 @@ namespace vlaaienslag
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            ConfigureCommonServices(services);
 
-            // TODO add development datastore
+            System.Console.WriteLine(Configuration.GetConnectionString("DBConnection"));
+            System.Console.WriteLine(Configuration.GetConnectionString("defaultConnection"));
+            services.AddDbContext<DataStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
+            services.BuildServiceProvider().GetService<DataStoreContext>().Database.Migrate();
         }
 
         public void ConfigureDevelopmentServices(IServiceCollection services)
         {
-            services.AddMvc();
+            ConfigureCommonServices(services);
 
             services.AddDbContext<DataStoreContext>(options => options.UseInMemoryDatabase("myDatabase"));
+        }
+
+        private void ConfigureCommonServices(IServiceCollection services)
+        {
+            services.AddMvc();
 
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<ISellerRepository, SellerRepository>();
             services.AddTransient<IBuyerRepository, BuyerRepository>();
             services.AddTransient<IOrderService, OrderService>();
         }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {

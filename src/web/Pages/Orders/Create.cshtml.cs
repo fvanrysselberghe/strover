@@ -18,11 +18,6 @@ namespace vlaaienslag.Pages.Orders
         {
             _context = context;
             _service = service;
-
-            //TODO remove stub
-            _context.Product.Add(new Product() { Name = "AppelTaart", Price = 10.0M });
-            _context.Product.Add(new Product() { Name = "KriekenVlaai", Price = 20.0M });
-            _context.SaveChanges();
         }
 
 
@@ -60,7 +55,7 @@ namespace vlaaienslag.Pages.Orders
         public List<uint> OrderedQuantities { get; set; } //Each request starts with a new instance of the view -> add id as hidden field with the quantity
 
 
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
