@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace vlaaienslag.Models
 {
-    public class DataStoreContext : DbContext
+    public class DataStoreContext : IdentityDbContext<IdentityUser>
     {
         public DataStoreContext(DbContextOptions<DataStoreContext> options)
         : base(options)
