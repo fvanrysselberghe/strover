@@ -11,6 +11,8 @@
             <li><a asp-page="/Orders/Create">Bestelling Ingeven</a></li>
         </ul>
     </div>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("OC"))
+    {
     <div class="col-md-3">
         <h2>Administratie</h2>
         <ul>
@@ -18,4 +20,5 @@
             <li><a asp-page="/Products/Index">Producten Beheren</a></li>
         </ul>
     </div>
+    }
 </div>
