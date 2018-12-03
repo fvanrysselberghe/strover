@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using vlaaienslag.Models;
+using vlaaienslag.Application;
 using vlaaienslag.Application.Interfaces;
 using vlaaienslag.Application.Services;
 using vlaaienslag.Infrastructure.Data;
@@ -55,7 +56,7 @@ namespace vlaaienslag
         {
             services.AddAuthorization( options =>
                 {
-                    options.AddPolicy("RequiresAdministration", policy => policy.RequireRole("oc"));
+                    options.AddPolicy("RequiresAdministration", policy => policy.RequireRole(ApplicationRole.Administrator));
                 });
             
             services.AddMvc()
@@ -144,7 +145,7 @@ namespace vlaaienslag
             var baseUserResult = await userManager.CreateAsync(baseUser, "Verkoper#123");
             if (baseUserResult.Succeeded)
             {
-                var result = await userManager.AddToRoleAsync(baseUser, "user");
+                var result = await userManager.AddToRoleAsync(baseUser, ApplicationRole.Seller);
             }
 
             //add oc-1 = oc
@@ -154,7 +155,7 @@ namespace vlaaienslag
             var managementUserResult = await userManager.CreateAsync(managementUser, "Ouder#123");
             if (managementUserResult.Succeeded)
             {
-                var result = await userManager.AddToRoleAsync(managementUser, "oc");
+                var result = await userManager.AddToRoleAsync(managementUser, ApplicationRole.Administrator);
             }
 
             //add administrator
