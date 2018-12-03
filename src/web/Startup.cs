@@ -53,7 +53,16 @@ namespace vlaaienslag
 
         private void ConfigureCommonServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddAuthorization( options =>
+                {
+                    options.AddPolicy("RequiresAdministration", policy => policy.RequireRole("oc"));
+                });
+            
+            services.AddMvc()
+                .AddRazorPagesOptions( options => 
+                {
+                    options.Conventions.AuthorizeFolder("/Products", "RequiresAdministration");
+                });
 
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<ISellerRepository, SellerRepository>();
@@ -72,6 +81,8 @@ namespace vlaaienslag
                 options.LogoutPath = $"/Identity/Account/Logout";
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
+
+
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider services)
