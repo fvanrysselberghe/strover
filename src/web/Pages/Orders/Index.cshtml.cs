@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using NPOI.XSSF.UserModel;
+using vlaaienslag.Application;
+using vlaaienslag.Application.Interfaces;
 using vlaaienslag.Models;
 
 namespace vlaaienslag.Pages.Orders
@@ -25,7 +27,10 @@ namespace vlaaienslag.Pages.Orders
 
         public async Task OnGetAsync()
         {
-            Order = await _context.Order.ToListAsync();
+            if (User.IsInRole(ApplicationRole.Administrator))
+                Order = await _context.Order.ToListAsync();
+            else
+                Order = await _context.Order.Where(order => order.SellerId == User.Identity.Name).ToListAsync();
         }
 
         ///<summary>
@@ -33,23 +38,43 @@ namespace vlaaienslag.Pages.Orders
         ///</summary>
         public IActionResult OnGetExport()
         {
+            ICollection<Order> orders;
+            if (User.IsInRole(ApplicationRole.Administrator))
+                orders = _context.Order.ToList();
+            else
+                orders = _context.Order.Where(order => order.SellerId == User.Identity.Name).ToList();
+
+            var excelFileContent = AsExcel(orders);
+            return new FileContentResult(excelFileContent, ContentTypeExcel);
+        }
+
+        private byte[] AsExcel(ICollection<Order> orders)
+        {
             var document = new XSSFWorkbook();
             var sheet = document.CreateSheet("Details");
 
-            var row = sheet.CreateRow(0);
-            row.CreateCell(0).SetCellValue("naam");
-            row.CreateCell(1).SetCellValue("address");
+            CreateHeader(sheet);
 
-            row = sheet.CreateRow(1);
-            row.CreateCell(0).SetCellValue("piet");
-            row.CreateCell(1).SetCellValue("heinkade");
+            Int32 rowNum = 1;
+            foreach (var order in orders)
+            {
+                var row = sheet.CreateRow(rowNum);
+                row.CreateCell(0).SetCellValue(order.BuyerId);
+
+                ++rowNum;
+            }
 
             var stream = new MemoryStream();
             document.Write(stream);
 
             // #TODO replace by better construct, e.g. temporary file?
-            var content = stream.ToArray();
-            return new FileContentResult(content, ContentTypeExcel);
+            return stream.ToArray();
         }
+        private void CreateHeader(NPOI.SS.UserModel.ISheet sheet)
+        {
+            var row = sheet.CreateRow(0);
+            row.CreateCell(0).SetCellValue("koper");
+        }
+
     }
 }
