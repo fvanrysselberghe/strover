@@ -14,7 +14,8 @@ namespace vlaaienslag.Pages.Orders
         private readonly vlaaienslag.Models.DataStoreContext _context;
         private readonly vlaaienslag.Application.Interfaces.IOrderService _service;
 
-        public CreateModel(vlaaienslag.Models.DataStoreContext context, vlaaienslag.Application.Interfaces.IOrderService service)
+        public CreateModel(vlaaienslag.Models.DataStoreContext context, 
+                            vlaaienslag.Application.Interfaces.IOrderService service)
         {
             _context = context;
             _service = service;
@@ -33,9 +34,6 @@ namespace vlaaienslag.Pages.Orders
 
         [BindProperty]
         public Customer Buyer { get; set; }
-
-        [BindProperty]
-        public SalesPerson Seller { get; set; }
 
         // Group into Model
         [BindProperty]
@@ -67,12 +65,11 @@ namespace vlaaienslag.Pages.Orders
             return RedirectToPage("./Index");
         }
 
-
         private OrderRequest asOrderRequest()
         {
             var request = new OrderRequest();
             request.Buyer = this.Buyer;
-            request.Seller = this.Seller;
+            request.Seller = new SalesPerson(){ID = User.Identity.Name};
             request.DeliveryMethod = createDeliveryDetails();
             request.Items = createItemSelection();
 

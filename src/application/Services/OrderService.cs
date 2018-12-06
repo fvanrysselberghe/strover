@@ -33,8 +33,6 @@ namespace vlaaienslag.Application.Services
             // #TODO error handling, e.g. network failure
             buyerRepository.Add(request.Buyer);
 
-            sellerRepository.Add(request.Seller);
-
             RegisterOrder(request.Buyer.ID, request.Seller.ID, request.Items);
 
         }
