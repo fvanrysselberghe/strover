@@ -24,10 +24,15 @@ namespace vlaaienslag.Pages.Orders
 
         public async Task OnGetAsync()
         {
+            Order = await PopulateMyListOfOrders();
+        }
+
+        private async Task<IList<Order>> PopulateMyListOfOrders()
+        {
             if (User.IsInRole(ApplicationRole.Administrator))
-                Order = await _orderStore.GetAsync();
+                return await _orderStore.GetAsync();
             else
-                Order = await _orderStore.GetAsync(User.Identity.Name);
+                return await _orderStore.GetAsync(User.Identity.Name);
         }
 
         ///<summary>
@@ -35,14 +40,9 @@ namespace vlaaienslag.Pages.Orders
         ///</summary>
         public async Task<IActionResult> OnGetExportAsync()
         {
-            ICollection<Order> orders;
+            Order = await PopulateMyListOfOrders();
 
-            if (User.IsInRole(ApplicationRole.Administrator))
-                orders = await _orderStore.GetAsync();
-            else
-                orders = await _orderStore.GetAsync(User.Identity.Name);
-
-            var excelFileContent = AsExcel(orders);
+            var excelFileContent = AsExcel(Order);
             return new FileContentResult(excelFileContent, ContentTypeExcel);
         }
 
