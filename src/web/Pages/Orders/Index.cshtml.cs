@@ -16,33 +16,31 @@ namespace vlaaienslag.Pages.Orders
     public class IndexModel : PageModel
     {
         private const string ContentTypeExcel = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-        private readonly vlaaienslag.Models.DataStoreContext _context;
+        private readonly IOrderRepository _orderStore;
 
-        public IndexModel(vlaaienslag.Models.DataStoreContext context)
-        {
-            _context = context;
-        }
+        public IndexModel(IOrderRepository orderStore) => _orderStore = orderStore;
 
         public IList<Order> Order { get; set; } /// Orders that are active
 
         public async Task OnGetAsync()
         {
             if (User.IsInRole(ApplicationRole.Administrator))
-                Order = await _context.Order.ToListAsync();
+                Order = await _orderStore.GetAsync();
             else
-                Order = await _context.Order.Where(order => order.SellerId == User.Identity.Name).ToListAsync();
+                Order = await _orderStore.GetAsync(User.Identity.Name);
         }
 
         ///<summary>
         /// Exports the order data to an Excel file
         ///</summary>
-        public IActionResult OnGetExport()
+        public async Task<IActionResult> OnGetExportAsync()
         {
             ICollection<Order> orders;
+
             if (User.IsInRole(ApplicationRole.Administrator))
-                orders = _context.Order.ToList();
+                orders = await _orderStore.GetAsync();
             else
-                orders = _context.Order.Where(order => order.SellerId == User.Identity.Name).ToList();
+                orders = await _orderStore.GetAsync(User.Identity.Name);
 
             var excelFileContent = AsExcel(orders);
             return new FileContentResult(excelFileContent, ContentTypeExcel);
