@@ -22,8 +22,22 @@ namespace vlaaienslag.Infrastructure.Data
             _context.SaveChangesAsync();
         }
 
-        public async Task<IList<Order>> GetAsync() => await _context.Order.ToListAsync();
+        public async Task<IList<Order>> GetAsync()
+        {
+            return await _context.Order
+                .Include(order => order.OrderedItems)
+                .Include(order => order.Buyer)
+                .ToListAsync();
+        }
 
-        public async Task<IList<Order>> GetAsync(string sellerId) => await _context.Order.Where(order => order.SellerId == sellerId).ToListAsync();
+        public async Task<IList<Order>> GetAsync(string sellerId)
+        {
+            return await _context.Order
+                .Where(order => order.SellerId == sellerId)
+                .Include(order => order.OrderedItems)
+                .Include(order => order.Buyer)
+                .ToListAsync();
+        }
+
     }
 }

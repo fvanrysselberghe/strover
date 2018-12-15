@@ -25,6 +25,17 @@ namespace vlaaienslag.Application.Services
             newOrder.BuyerId = buyerId;
             newOrder.SellerId = sellerId;
 
+            // #todo_rewrite move to order
+            var itemList = new List<OrderedItem>();
+            foreach (var item in selection)
+            {
+                var orderedItem = new OrderedItem();
+                orderedItem.ProductId = item.Key;
+                orderedItem.Quantity = item.Value;
+                itemList.Add(orderedItem);
+            }
+            newOrder.OrderedItems = itemList;
+
             orderRepository.Add(newOrder);
         }
 
@@ -34,7 +45,6 @@ namespace vlaaienslag.Application.Services
             buyerRepository.Add(request.Buyer);
 
             RegisterOrder(request.Buyer.ID, request.Seller.ID, request.Items);
-
         }
     }
 }
