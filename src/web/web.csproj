@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <GenerateFullPaths>true</GenerateFullPaths>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="dotnetcore.npoi" Version="1.2.1" /><!-- should be moved to infrastructure-->
