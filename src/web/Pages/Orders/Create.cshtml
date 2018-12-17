@@ -32,22 +32,24 @@
                 <label asp-for="Pickup" class="control-label"></label>
                 <input asp-for="Pickup" class="form-control" />
             </div>
-            <div class="form-group">
-                <label asp-for="DeliveryAddress.Street" class="control-label"></label>
-                <input asp-for="DeliveryAddress.Street" class="form-control"/>
-            </div>  
-            <div class="form-group">
-                <label asp-for="DeliveryAddress.Number" class="control-label"></label>
-                <input asp-for="DeliveryAddress.Number" class="form-control"/>
+            <div id="deliveryDetails">
+                <div class="form-group">
+                    <label asp-for="DeliveryAddress.Street" class="control-label"></label>
+                    <input asp-for="DeliveryAddress.Street" class="form-control"/>
+                </div>  
+                <div class="form-group">
+                    <label asp-for="DeliveryAddress.Number" class="control-label"></label>
+                    <input asp-for="DeliveryAddress.Number" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DeliveryAddress.City" class="control-label"></label>
+                    <input asp-for="DeliveryAddress.City" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="DeliveryComments" class="control-label"></label>
+                    <input asp-for="DeliveryComments" class="form-control" />
+                </div>         
             </div>
-            <div class="form-group">
-                <label asp-for="DeliveryAddress.City" class="control-label"></label>
-                <input asp-for="DeliveryAddress.City" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="DeliveryComments" class="control-label"></label>
-                <input asp-for="DeliveryComments" class="form-control" />
-            </div>         
 
             <!-- Order selection --> 
             @for (int i = 0; i < Model.ProductIds.Count; ++i) {
@@ -72,4 +74,16 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+    $(document).ready(function () {
+        $('#Pickup').change( function(event) 
+        {
+        if (event.target.checked)
+            $('#deliveryDetails').hide();
+        else
+            $('#deliveryDetails').show();
+        });
+    });
+    </script>
 }
