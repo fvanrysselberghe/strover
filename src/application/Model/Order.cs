@@ -1,9 +1,9 @@
-using vlaaienslag.Models;
+using Strover.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace vlaaienslag.Models
+namespace Strover.Models
 {
     public class Order
     {

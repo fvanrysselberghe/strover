@@ -1,7 +1,7 @@
-using vlaaienslag.Models;
+using Strover.Models;
 using System;
 
-namespace vlaaienslag.Models
+namespace Strover.Models
 {
     public class OrderedItem
     {

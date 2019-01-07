@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using vlaaienslag.Models;
+using Strover.Models;
 
-namespace vlaaienslag.Pages.Products
+namespace Strover.Pages.Products
 {
     public class CreateModel : PageModel
     {
-        private readonly vlaaienslag.Models.DataStoreContext _context;
+        private readonly Strover.Models.DataStoreContext _context;
 
-        public CreateModel(vlaaienslag.Models.DataStoreContext context)
+        public CreateModel(Strover.Models.DataStoreContext context)
         {
             _context = context;
         }

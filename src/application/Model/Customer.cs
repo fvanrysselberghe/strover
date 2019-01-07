@@ -1,4 +1,4 @@
-namespace vlaaienslag.Models
+namespace Strover.Models
 {
     public class Customer
     {

@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
-namespace vlaaienslag.Models
+namespace Strover.Models
 {
     public class DataStoreContext : IdentityDbContext<IdentityUser>
     {

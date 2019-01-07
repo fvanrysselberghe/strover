@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using vlaaienslag.Models;
+using Strover.Models;
 
-namespace vlaaienslag.Application.Interfaces
+namespace Strover.Application.Interfaces
 {
     public interface IOrderRepository
     {
-        void Add(vlaaienslag.Models.Order order);
+        void Add(Strover.Models.Order order);
 
         Task<IList<Order>> GetAsync();
         Task<IList<Order>> GetAsync(string user);

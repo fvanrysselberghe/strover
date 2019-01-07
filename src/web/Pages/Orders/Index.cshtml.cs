@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using NPOI.XSSF.UserModel;
-using vlaaienslag.Application;
-using vlaaienslag.Application.Interfaces;
-using vlaaienslag.Models;
+using Strover.Application;
+using Strover.Application.Interfaces;
+using Strover.Models;
 
-namespace vlaaienslag.Pages.Orders
+namespace Strover.Pages.Orders
 {
     public class IndexModel : PageModel
     {

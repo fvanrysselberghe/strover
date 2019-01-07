@@ -7,15 +7,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using vlaaienslag.Models;
-using vlaaienslag.Application;
-using vlaaienslag.Application.Interfaces;
-using vlaaienslag.Application.Services;
-using vlaaienslag.Infrastructure.Data;
+using Strover.Models;
+using Strover.Application;
+using Strover.Application.Interfaces;
+using Strover.Application.Services;
+using Strover.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 
-namespace vlaaienslag
+namespace Strover
 {
     public class Startup
     {
@@ -34,7 +34,7 @@ namespace vlaaienslag
             System.Console.WriteLine(Configuration.GetConnectionString("DBConnection"));
             System.Console.WriteLine(Configuration.GetConnectionString("defaultConnection"));
             services.AddDbContext<DataStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
-            
+
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<DataStoreContext>();
         }
@@ -44,7 +44,7 @@ namespace vlaaienslag
             ConfigureCommonServices(services);
 
             services.AddDbContext<DataStoreContext>(options => options.UseInMemoryDatabase("myDatabase"));
-            
+
             //services.AddIdentity<IdentityUser, IdentityRole>()
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<DataStoreContext>()
@@ -54,16 +54,16 @@ namespace vlaaienslag
 
         private void ConfigureCommonServices(IServiceCollection services)
         {
-            services.AddAuthorization( options =>
-                {
-                    options.AddPolicy("RequiresAdministration", policy => policy.RequireRole(ApplicationRole.Administrator));
-                });
-            
+            services.AddAuthorization(options =>
+               {
+                   options.AddPolicy("RequiresAdministration", policy => policy.RequireRole(ApplicationRole.Administrator));
+               });
+
             services.AddMvc()
-                .AddRazorPagesOptions( options => 
-                {
-                    options.Conventions.AuthorizeFolder("/Products", "RequiresAdministration");
-                });
+                .AddRazorPagesOptions(options =>
+               {
+                   options.Conventions.AuthorizeFolder("/Products", "RequiresAdministration");
+               });
 
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<ISellerRepository, SellerRepository>();
@@ -108,7 +108,7 @@ namespace vlaaienslag
             });
 
             CreateRoles(services).Wait();
-//            CreateSuperUser(services).Wait();
+            //            CreateSuperUser(services).Wait();
 
             if (env.IsDevelopment())
             {
@@ -120,17 +120,17 @@ namespace vlaaienslag
         private async Task CreateRoles(IServiceProvider services)
         {
             var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-            
-            string[] requiredRoles = {"user" , "oc", "administrator"};
+
+            string[] requiredRoles = { "user", "oc", "administrator" };
 
             foreach (var requiredRole in requiredRoles)
             {
                 bool roleExists = await roleManager.RoleExistsAsync(requiredRole);
                 if (!roleExists)
-                    {
-                        var newRole = new IdentityRole(requiredRole);
-                        await roleManager.CreateAsync(newRole);
-                    }
+                {
+                    var newRole = new IdentityRole(requiredRole);
+                    await roleManager.CreateAsync(newRole);
+                }
             }
         }
 

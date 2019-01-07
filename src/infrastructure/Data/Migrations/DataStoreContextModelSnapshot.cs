@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using vlaaienslag.Models;
+using Strover.Models;
 
 namespace infrastructure.Data.Migrations
 {
@@ -184,7 +184,7 @@ namespace infrastructure.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("vlaaienslag.Models.Customer", b =>
+            modelBuilder.Entity("Strover.Models.Customer", b =>
                 {
                     b.Property<string>("ID")
                         .ValueGeneratedOnAdd();
@@ -198,7 +198,7 @@ namespace infrastructure.Data.Migrations
                     b.ToTable("Buyer");
                 });
 
-            modelBuilder.Entity("vlaaienslag.Models.Order", b =>
+            modelBuilder.Entity("Strover.Models.Order", b =>
                 {
                     b.Property<string>("OrderId")
                         .ValueGeneratedOnAdd();
@@ -216,7 +216,7 @@ namespace infrastructure.Data.Migrations
                     b.ToTable("Order");
                 });
 
-            modelBuilder.Entity("vlaaienslag.Models.OrderedItem", b =>
+            modelBuilder.Entity("Strover.Models.OrderedItem", b =>
                 {
                     b.Property<string>("OrderedItemId")
                         .ValueGeneratedOnAdd();
@@ -236,7 +236,7 @@ namespace infrastructure.Data.Migrations
                     b.ToTable("OrderedItem");
                 });
 
-            modelBuilder.Entity("vlaaienslag.Models.Product", b =>
+            modelBuilder.Entity("Strover.Models.Product", b =>
                 {
                     b.Property<string>("ProductId")
                         .ValueGeneratedOnAdd();
@@ -250,7 +250,7 @@ namespace infrastructure.Data.Migrations
                     b.ToTable("Product");
                 });
 
-            modelBuilder.Entity("vlaaienslag.Models.SalesPerson", b =>
+            modelBuilder.Entity("Strover.Models.SalesPerson", b =>
                 {
                     b.Property<string>("ID")
                         .ValueGeneratedOnAdd();
@@ -309,20 +309,20 @@ namespace infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("vlaaienslag.Models.Order", b =>
+            modelBuilder.Entity("Strover.Models.Order", b =>
                 {
-                    b.HasOne("vlaaienslag.Models.Customer", "Buyer")
+                    b.HasOne("Strover.Models.Customer", "Buyer")
                         .WithMany()
                         .HasForeignKey("BuyerId");
                 });
 
-            modelBuilder.Entity("vlaaienslag.Models.OrderedItem", b =>
+            modelBuilder.Entity("Strover.Models.OrderedItem", b =>
                 {
-                    b.HasOne("vlaaienslag.Models.Order", "Order")
+                    b.HasOne("Strover.Models.Order", "Order")
                         .WithMany("OrderedItems")
                         .HasForeignKey("OrderId");
 
-                    b.HasOne("vlaaienslag.Models.Product", "Product")
+                    b.HasOne("Strover.Models.Product", "Product")
                         .WithMany("OrderedItems")
                         .HasForeignKey("ProductId");
                 });

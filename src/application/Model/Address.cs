@@ -1,6 +1,6 @@
-using vlaaienslag.Models;
+using Strover.Models;
 
-namespace vlaaienslag.Models
+namespace Strover.Models
 {
     public class Address
     {

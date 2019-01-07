@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using vlaaienslag.Models;
+using Strover.Models;
 
 [assembly: HostingStartup(typeof(web.Areas.Identity.IdentityHostingStartup))]
 namespace web.Areas.Identity

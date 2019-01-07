@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace vlaaienslag.Models
+namespace Strover.Models
 {
     public class Product
     {

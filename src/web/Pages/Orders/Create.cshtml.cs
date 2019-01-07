@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using vlaaienslag.Models;
+using Strover.Models;
 
-namespace vlaaienslag.Pages.Orders
+namespace Strover.Pages.Orders
 {
     public class CreateModel : PageModel
     {
-        private readonly vlaaienslag.Models.DataStoreContext _context;
-        private readonly vlaaienslag.Application.Interfaces.IOrderService _service;
+        private readonly Strover.Models.DataStoreContext _context;
+        private readonly Strover.Application.Interfaces.IOrderService _service;
 
-        public CreateModel(vlaaienslag.Models.DataStoreContext context, 
-                            vlaaienslag.Application.Interfaces.IOrderService service)
+        public CreateModel(Strover.Models.DataStoreContext context,
+                            Strover.Application.Interfaces.IOrderService service)
         {
             _context = context;
             _service = service;
@@ -69,7 +69,7 @@ namespace vlaaienslag.Pages.Orders
         {
             var request = new OrderRequest();
             request.Buyer = this.Buyer;
-            request.Seller = new SalesPerson(){ID = User.Identity.Name};
+            request.Seller = new SalesPerson() { ID = User.Identity.Name };
             request.DeliveryMethod = createDeliveryDetails();
             request.Items = createItemSelection();
 

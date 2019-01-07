@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using vlaaienslag.Models;
+using Strover.Models;
 
-namespace vlaaienslag.Pages.Products
+namespace Strover.Pages.Products
 {
     public class IndexModel : PageModel
     {
-        private readonly vlaaienslag.Models.DataStoreContext _context;
+        private readonly Strover.Models.DataStoreContext _context;
 
-        public IndexModel(vlaaienslag.Models.DataStoreContext context)
+        public IndexModel(Strover.Models.DataStoreContext context)
         {
             _context = context;
         }

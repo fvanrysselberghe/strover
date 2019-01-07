@@ -1,4 +1,4 @@
-namespace vlaaienslag.Models
+namespace Strover.Models
 {
     public enum DeliveryType { Pickup, Delivery };
 

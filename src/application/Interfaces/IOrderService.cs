@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using vlaaienslag.Models;
+using Strover.Models;
 
-namespace vlaaienslag.Application.Interfaces
+namespace Strover.Application.Interfaces
 {
     public interface IOrderService
     {

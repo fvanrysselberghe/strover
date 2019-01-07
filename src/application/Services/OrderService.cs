@@ -1,8 +1,8 @@
-using vlaaienslag.Application.Interfaces;
-using vlaaienslag.Models;
+using Strover.Application.Interfaces;
+using Strover.Models;
 using System.Collections.Generic;
 
-namespace vlaaienslag.Application.Services
+namespace Strover.Application.Services
 {
 
     public class OrderService : IOrderService

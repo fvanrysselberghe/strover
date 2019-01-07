@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using vlaaienslag.Models;
+using Strover.Models;
 
-namespace vlaaienslag.Pages.Products
+namespace Strover.Pages.Products
 {
     public class DeleteModel : PageModel
     {
-        private readonly vlaaienslag.Models.DataStoreContext _context;
+        private readonly Strover.Models.DataStoreContext _context;
 
-        public DeleteModel(vlaaienslag.Models.DataStoreContext context)
+        public DeleteModel(Strover.Models.DataStoreContext context)
         {
             _context = context;
         }

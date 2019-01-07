@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using vlaaienslag.Models;
+using Strover.Models;
 
-namespace vlaaienslag.Pages.Products
+namespace Strover.Pages.Products
 {
     public class EditModel : PageModel
     {
-        private readonly vlaaienslag.Models.DataStoreContext _context;
+        private readonly Strover.Models.DataStoreContext _context;
 
-        public EditModel(vlaaienslag.Models.DataStoreContext context)
+        public EditModel(Strover.Models.DataStoreContext context)
         {
             _context = context;
         }

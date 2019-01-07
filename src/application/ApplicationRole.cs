@@ -1,4 +1,4 @@
-namespace vlaaienslag.Application 
+namespace Strover.Application
 {
     public static class ApplicationRole
     {

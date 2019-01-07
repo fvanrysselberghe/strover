@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using vlaaienslag.Application.Interfaces;
-using vlaaienslag.Models;
+using Strover.Application.Interfaces;
+using Strover.Models;
 
-namespace vlaaienslag.Infrastructure.Data
+namespace Strover.Infrastructure.Data
 {
     public class OrderRepository : IOrderRepository
     {
