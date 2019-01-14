@@ -26,6 +26,7 @@ namespace Strover.Infrastructure.Data
         {
             return await _context.Order
                 .Include(order => order.OrderedItems)
+                    .ThenInclude(orderedItem => orderedItem.Product)
                 .Include(order => order.Buyer)
                 .ToListAsync();
         }
@@ -35,6 +36,7 @@ namespace Strover.Infrastructure.Data
             return await _context.Order
                 .Where(order => order.SellerId == sellerId)
                 .Include(order => order.OrderedItems)
+                    .ThenInclude(orderedItem => orderedItem.Product)
                 .Include(order => order.Buyer)
                 .ToListAsync();
         }

@@ -34,6 +34,17 @@ namespace Strover.Models
             }
         }
 
+        public decimal Cost
+        {
+            get
+            {
+                if (OrderedItems == null)
+                    return 0;
+
+                return OrderedItems.Sum(item => item.Price);
+            }
+        }
+
 
     }
 }

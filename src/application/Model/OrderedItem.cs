@@ -15,5 +15,7 @@ namespace Strover.Models
         public string OrderId { get; set; }
 
         public virtual Order Order { get; set; }
+
+        public decimal Price { get { return Product.Price * Quantity; } }
     }
 }

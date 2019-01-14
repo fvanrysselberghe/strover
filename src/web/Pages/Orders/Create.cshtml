@@ -54,8 +54,9 @@
             <!-- Order selection --> 
             @for (int i = 0; i < Model.ProductIds.Count; ++i) {
                 <div class="form-group">
-                    <label class="control-label">@Model.ProductIds[i]</label>
-                    <input type="hidden" asp-for="ProductIds[i]" class="form-control" />                    
+                    <label class="control-label">@Model.ProductNames[i]</label>
+                    <input type="hidden" asp-for="ProductNames[i]" class="form-control" /> 
+                    <input type="hidden" asp-for="ProductIds[i]" class="form-control" />                   
                     <input asp-for="OrderedQuantities[i]" class="form-control"/>
                 </div>
             }

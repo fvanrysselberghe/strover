@@ -72,7 +72,9 @@ namespace Strover.Pages.Orders
         {
             var row = sheet.CreateRow(0);
             row.CreateCell(0).SetCellValue("koper");
-        }
 
+            //koper_naam, koper_voornaam, koper_straat, koper_straat_nr, koper_bus, koper_gemeente, koper_telefoon, <producten>,totaal [#producten], totaal_betaald,	haalt_zelf_af,	opmerkingen, verkoper_naam,	klas, verkoper, unified address ,geocode       }
+
+        }
     }
 }
