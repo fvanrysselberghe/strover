@@ -22,7 +22,7 @@ namespace Strover.Infrastructure.Data
             _context.SaveChangesAsync();
         }
 
-        public async Task<IList<Order>> GetAsync()
+        public async Task<IList<Order>> AllAsync()
         {
             return await _context.Order
                 .Include(order => order.OrderedItems)
@@ -31,7 +31,7 @@ namespace Strover.Infrastructure.Data
                 .ToListAsync();
         }
 
-        public async Task<IList<Order>> GetAsync(string sellerId)
+        public async Task<IList<Order>> AllForSellerAsync(string sellerId)
         {
             return await _context.Order
                 .Where(order => order.SellerId == sellerId)
@@ -39,6 +39,16 @@ namespace Strover.Infrastructure.Data
                     .ThenInclude(orderedItem => orderedItem.Product)
                 .Include(order => order.Buyer)
                 .ToListAsync();
+        }
+
+        public async Task<Order> GetAsync(string orderId)
+        {
+            return await _context.Order
+                .Where(order => order.OrderId == orderId)
+                .Include(order => order.OrderedItems)
+                   .ThenInclude(OrderedItem => OrderedItem.Product)
+                .Include(order => order.Buyer)
+                .SingleOrDefaultAsync();
         }
 
     }

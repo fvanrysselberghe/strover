@@ -8,7 +8,9 @@ namespace Strover.Application.Interfaces
     {
         void Add(Strover.Models.Order order);
 
-        Task<IList<Order>> GetAsync();
-        Task<IList<Order>> GetAsync(string user);
+        Task<IList<Order>> AllAsync();
+        Task<IList<Order>> AllForSellerAsync(string user);
+
+        Task<Order> GetAsync(string orderId);
     }
 }

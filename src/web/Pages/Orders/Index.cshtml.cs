@@ -30,9 +30,9 @@ namespace Strover.Pages.Orders
         private async Task<IList<Order>> PopulateMyListOfOrders()
         {
             if (User.IsInRole(ApplicationRole.Administrator))
-                return await _orderStore.GetAsync();
+                return await _orderStore.AllAsync();
             else
-                return await _orderStore.GetAsync(User.Identity.Name);
+                return await _orderStore.AllForSellerAsync(User.Identity.Name);
         }
 
         ///<summary>
