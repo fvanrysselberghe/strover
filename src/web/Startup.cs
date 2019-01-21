@@ -35,8 +35,10 @@ namespace Strover
             System.Console.WriteLine(Configuration.GetConnectionString("defaultConnection"));
             services.AddDbContext<DataStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<DataStoreContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<DataStoreContext>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
         }
 
         public void ConfigureDevelopmentServices(IServiceCollection services)
