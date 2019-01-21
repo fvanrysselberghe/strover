@@ -64,6 +64,8 @@ namespace Strover
             services.AddMvc()
                 .AddRazorPagesOptions(options =>
                {
+                   options.Conventions.AuthorizePage("/Index");
+                   options.Conventions.AuthorizeFolder("/Orders");
                    options.Conventions.AuthorizeFolder("/Products", "RequiresAdministration");
                });
 
