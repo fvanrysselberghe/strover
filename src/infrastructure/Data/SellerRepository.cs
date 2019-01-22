@@ -12,7 +12,7 @@ namespace Strover.Infrastructure.Data
             _storage = store;
         }
 
-        public void Add(SalesPerson seller)
+        public void Add(SalesPersonWrapper seller)
         {
             _storage.Seller.Add(seller);
             _storage.SaveChangesAsync();

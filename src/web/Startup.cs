@@ -35,7 +35,7 @@ namespace Strover
             System.Console.WriteLine(Configuration.GetConnectionString("defaultConnection"));
             services.AddDbContext<DataStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<Strover.Infrastructure.Data.SalesPerson, IdentityRole>()
                 .AddEntityFrameworkStores<DataStoreContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
@@ -48,7 +48,7 @@ namespace Strover
             services.AddDbContext<DataStoreContext>(options => options.UseInMemoryDatabase("myDatabase"));
 
             //services.AddIdentity<IdentityUser, IdentityRole>()
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<Strover.Infrastructure.Data.SalesPerson, IdentityRole>()
                 .AddEntityFrameworkStores<DataStoreContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
@@ -140,10 +140,10 @@ namespace Strover
 
         private async Task CreateDefaultUsers(IServiceProvider services)
         {
-            var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+            var userManager = services.GetRequiredService<UserManager<SalesPerson>>();
 
             //add verkoper 1
-            var baseUser = new IdentityUser("verkoper@bc.com");
+            var baseUser = new SalesPerson("verkoper@bc.com");
             baseUser.Email = "verkoper@bc.com";
 
             var baseUserResult = await userManager.CreateAsync(baseUser, "Verkoper#123");
@@ -153,7 +153,7 @@ namespace Strover
             }
 
             //add oc-1 = oc
-            var managementUser = new IdentityUser("ouder@anton.com");
+            var managementUser = new SalesPerson("ouder@anton.com");
             managementUser.Email = "ouder@anton.com";
 
             var managementUserResult = await userManager.CreateAsync(managementUser, "Ouder#123");
@@ -163,7 +163,7 @@ namespace Strover
             }
 
             //add administrator
-            var administrationUser = new IdentityUser("admin@company.com");
+            var administrationUser = new SalesPerson("admin@company.com");
             managementUser.Email = "admin@company.com";
 
             var administrationUserResult = await userManager.CreateAsync(administrationUser, "Admin#123");

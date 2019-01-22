@@ -2,7 +2,7 @@ using Strover.Models;
 
 namespace Strover.Models
 {
-    public class SalesPerson
+    public class SalesPersonWrapper
     {
         public string ID { get; set; }
         public string Name { get; set; }

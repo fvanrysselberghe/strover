@@ -4,6 +4,6 @@ namespace Strover.Application.Interfaces
 {
     public interface ISellerRepository
     {
-        void Add(SalesPerson seller);
+        void Add(SalesPersonWrapper seller);
     }
 }
