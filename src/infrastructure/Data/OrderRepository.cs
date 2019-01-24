@@ -19,7 +19,7 @@ namespace Strover.Infrastructure.Data
         public void Add(Order order)
         {
             _context.Order.Add(order);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public async Task<IList<Order>> AllAsync()

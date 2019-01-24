@@ -15,7 +15,7 @@ namespace Strover.Infrastructure.Data
         public void Add(Customer buyer)
         {
             _storage.Buyer.Add(buyer);
-            _storage.SaveChangesAsync();
+            _storage.SaveChanges();
         }
     }
 }
