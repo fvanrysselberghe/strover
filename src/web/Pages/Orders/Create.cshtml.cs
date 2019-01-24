@@ -72,7 +72,7 @@ namespace Strover.Pages.Orders
         {
             var request = new OrderRequest();
             request.Buyer = this.Buyer;
-            request.Seller = new SalesPerson() { ID = User.Identity.Name };
+            request.Seller = new SalesPersonWrapper() { ID = User.Identity.Name };
             request.DeliveryMethod = createDeliveryDetails();
             request.Items = createItemSelection();
 
