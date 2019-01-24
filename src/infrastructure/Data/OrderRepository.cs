@@ -22,6 +22,16 @@ namespace Strover.Infrastructure.Data
             _context.SaveChanges();
         }
 
+        public async Task Remove(string orderId)
+        {
+            var order = await GetAsync(orderId);
+
+            if (order != null)
+            {
+                _context.Order.Remove(order);
+                await _context.SaveChangesAsync();
+            }
+        }
         public async Task<IList<Order>> AllAsync()
         {
             return await _context.Order

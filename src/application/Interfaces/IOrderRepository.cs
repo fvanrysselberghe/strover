@@ -12,5 +12,7 @@ namespace Strover.Application.Interfaces
         Task<IList<Order>> AllForSellerAsync(string user);
 
         Task<Order> GetAsync(string orderId);
+
+        Task Remove(string orderId);
     }
 }
