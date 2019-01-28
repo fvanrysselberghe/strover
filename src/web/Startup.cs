@@ -34,8 +34,6 @@ namespace Strover
         {
             ConfigureCommonServices(services);
 
-            System.Console.WriteLine(Configuration.GetConnectionString("DBConnection"));
-            System.Console.WriteLine(Configuration.GetConnectionString("defaultConnection"));
             services.AddDbContext<DataStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
 
             services.AddIdentity<Strover.Infrastructure.Data.SalesPerson, IdentityRole>()
@@ -50,7 +48,6 @@ namespace Strover
 
             services.AddDbContext<DataStoreContext>(options => options.UseInMemoryDatabase("myDatabase"));
 
-            //services.AddIdentity<IdentityUser, IdentityRole>()
             services.AddIdentity<Strover.Infrastructure.Data.SalesPerson, IdentityRole>()
                 .AddEntityFrameworkStores<DataStoreContext>()
                 .AddDefaultUI()
@@ -104,7 +101,6 @@ namespace Strover
                         new CultureInfo("nl")
                     };
 
-                //options.DefaultRequestCulture = new RequestCulture("en-US");
                 options.DefaultRequestCulture = new RequestCulture("nl");
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
@@ -133,7 +129,6 @@ namespace Strover
                         new CultureInfo("nl")
                    };
 
-               // options.DefaultRequestCulture = new RequestCulture("en-US");
                options.DefaultRequestCulture = new RequestCulture("nl");
                options.SupportedCultures = supportedCultures;
                options.SupportedUICultures = supportedCultures;
@@ -148,7 +143,6 @@ namespace Strover
             });
 
             CreateRoles(services).Wait();
-            //            CreateSuperUser(services).Wait();
 
             if (env.IsDevelopment())
             {
