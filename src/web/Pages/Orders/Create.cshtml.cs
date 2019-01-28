@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -33,16 +34,34 @@ namespace Strover.Pages.Orders
             return Page();
         }
 
+        [Required(ErrorMessage = "Name Buyer Should Be Filled")]
+        [Display(Name = "Name Buyer")]
         [BindProperty]
-        public Customer Buyer { get; set; }
+        public string BuyerName { get; set; }
+
+        [Required(ErrorMessage = "Telephone Number Should Be Filled")]
+        [Display(Name = "Telephone Number")]
+        [BindProperty]
+        public string BuyerPhone { get; set; }
 
         // Group into Model
+        [Display(Name = "Will Be Picked Up")]
         [BindProperty]
-        public bool Pickup { get; set; }
+        public bool WillBePickedUp { get; set; }
 
+        [Display(Name = "Street")]
         [BindProperty]
-        public Address DeliveryAddress { get; set; }
+        public string DeliveryStreet { get; set; }
 
+        [Display(Name = "Number")]
+        [BindProperty]
+        public string DeliveryHouseNumber { get; set; }
+
+        [Display(Name = "City")]
+        [BindProperty]
+        public string DeliveryCity { get; set; }
+
+        [Display(Name = "Comments For The Delivery")]
         [BindProperty]
         public String DeliveryComments { get; set; }
 
@@ -54,7 +73,6 @@ namespace Strover.Pages.Orders
 
         [BindProperty]
         public List<uint> OrderedQuantities { get; set; } //Each request starts with a new instance of the view -> add id as hidden field with the quantity
-
 
         public IActionResult OnPost()
         {
@@ -71,7 +89,11 @@ namespace Strover.Pages.Orders
         private OrderRequest asOrderRequest()
         {
             var request = new OrderRequest();
-            request.Buyer = this.Buyer;
+            request.Buyer = new Customer()
+            {
+                Name = BuyerName,
+                TelephoneNumber = BuyerPhone
+            };
             request.Seller = new SalesPersonWrapper() { ID = User.Identity.Name };
             request.DeliveryMethod = createDeliveryDetails();
             request.Items = createItemSelection();
@@ -83,8 +105,13 @@ namespace Strover.Pages.Orders
         {
             var delivery = new DeliveryMethod()
             {
-                DeliveryType = Pickup ? DeliveryType.Pickup : DeliveryType.Delivery,
-                DeliveryAddress = DeliveryAddress,
+                DeliveryType = WillBePickedUp ? DeliveryType.Pickup : DeliveryType.Delivery,
+                DeliveryAddress = new Address()
+                {
+                    Street = DeliveryStreet,
+                    Number = DeliveryHouseNumber,
+                    City = DeliveryCity
+                },
                 Comments = DeliveryComments
             };
 

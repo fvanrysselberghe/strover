@@ -14,6 +14,9 @@ using Strover.Application.Services;
 using Strover.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace Strover
 {
@@ -61,13 +64,19 @@ namespace Strover
                    options.AddPolicy("RequiresAdministration", policy => policy.RequireRole(ApplicationRole.Administrator));
                });
 
+            services.AddLocalization(localizationOptions => localizationOptions.ResourcesPath = "Resources");
+
             services.AddMvc()
                 .AddRazorPagesOptions(options =>
                {
                    options.Conventions.AuthorizePage("/Index");
                    options.Conventions.AuthorizeFolder("/Orders");
                    options.Conventions.AuthorizeFolder("/Products", "RequiresAdministration");
-               });
+               })
+               .AddViewLocalization(
+                    LanguageViewLocationExpanderFormat.Suffix,
+                    opts => { opts.ResourcesPath = "Resources"; })
+                .AddDataAnnotationsLocalization();
 
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<ISellerRepository, SellerRepository>();
@@ -87,6 +96,19 @@ namespace Strover
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
 
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new List<CultureInfo>
+                    {
+                        new CultureInfo("en-US"),
+                        new CultureInfo("nl")
+                    };
+
+                //options.DefaultRequestCulture = new RequestCulture("en-US");
+                options.DefaultRequestCulture = new RequestCulture("nl");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
 
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -103,6 +125,20 @@ namespace Strover
             }
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseRequestLocalization(options =>
+           {
+               var supportedCultures = new List<CultureInfo>
+                   {
+                        new CultureInfo("en-US"),
+                        new CultureInfo("nl")
+                   };
+
+               // options.DefaultRequestCulture = new RequestCulture("en-US");
+               options.DefaultRequestCulture = new RequestCulture("nl");
+               options.SupportedCultures = supportedCultures;
+               options.SupportedUICultures = supportedCultures;
+           });
+
             app.UseAuthentication();
             app.UseMvc(routes =>
             {

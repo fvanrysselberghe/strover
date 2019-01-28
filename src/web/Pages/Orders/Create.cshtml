@@ -1,11 +1,13 @@
 @page
 @model Strover.Pages.Orders.CreateModel
 
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localized
+
 @{
     ViewData["Title"] = "Create";
 }
 
-<h2>Create</h2>
+<h2>@Localized["Create"]</h2>
 
 <h4>Order</h4>
 <hr />
@@ -16,12 +18,12 @@
             
             <!-- Buyer details -->
             <div class="form-group">
-                <label asp-for="Buyer.Name" class="control-label"></label>
-                <input asp-for="Buyer.Name" class="form-control"/>
+                <label asp-for="BuyerName" class="control-label"></label>
+                <input asp-for="BuyerName" class="form-control"/>
             </div>
             <div class="form-group">
-                <label asp-for="Buyer.TelephoneNumber" class="control-group"></label>
-                <input asp-for="Buyer.TelephoneNumber" class="form-control" />
+                <label asp-for="BuyerPhone" class="control-group"></label>
+                <input asp-for="BuyerPhone" class="form-control" />
             </div>
             <hr />
             
@@ -29,21 +31,21 @@
             <!-- #TODO switching delivery methods can be more elegant, 
                 e.g. javascript switching on/off visibility depending on the method-->
             <div class="form-group">
-                <label asp-for="Pickup" class="control-label"></label>
-                <input asp-for="Pickup" class="form-control" />
+                <label asp-for="WillBePickedUp" class="control-label"></label>
+                <input asp-for="WillBePickedUp" class="form-control" />
             </div>
             <div id="deliveryDetails">
                 <div class="form-group">
-                    <label asp-for="DeliveryAddress.Street" class="control-label"></label>
-                    <input asp-for="DeliveryAddress.Street" class="form-control"/>
+                    <label asp-for="DeliveryStreet" class="control-label"></label>
+                    <input asp-for="DeliveryStreet" class="form-control"/>
                 </div>  
                 <div class="form-group">
-                    <label asp-for="DeliveryAddress.Number" class="control-label"></label>
-                    <input asp-for="DeliveryAddress.Number" class="form-control"/>
+                    <label asp-for="DeliveryHouseNumber" class="control-label"></label>
+                    <input asp-for="DeliveryHouseNumber" class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <label asp-for="DeliveryAddress.City" class="control-label"></label>
-                    <input asp-for="DeliveryAddress.City" class="form-control" />
+                    <label asp-for="DeliveryCity" class="control-label"></label>
+                    <input asp-for="DeliveryCity" class="form-control" />
                 </div>
                 <div class="form-group">
                     <label asp-for="DeliveryComments" class="control-label"></label>
@@ -60,7 +62,6 @@
                     <input asp-for="OrderedQuantities[i]" class="form-control"/>
                 </div>
             }
-            <label>totaal</label> 
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -78,7 +79,7 @@
     
     <script>
     $(document).ready(function () {
-        $('#Pickup').change( function(event) 
+        $('#WillBePickedUp').change( function(event) 
         {
         if (event.target.checked)
             $('#deliveryDetails').hide();
