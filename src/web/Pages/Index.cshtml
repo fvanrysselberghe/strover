@@ -4,22 +4,24 @@
     ViewData["Title"] = "Home page";
 }
 @using Strover.Application;
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localized
+
 
 <div class="row">
     <div class="col-md-3">
-        <h2>Bestellingen</h2>
+        <h2>@Localized["Orders"]</h2>
         <ul>
-            <li><a asp-page="/Orders/Create">Bestelling Ingeven</a></li>
+            <li><a asp-page="/Orders/Create">@Localized["New Order"]</a></li>
         </ul>
     </div>
+    <div class="col-md-3">
+        <h2>@Localized["Manage"]</h2>
+        <ul>
+            <li><a asp-page="/Orders/Index">@Localized["My Orders"]</a></li>
     @if (User.Identity.IsAuthenticated && User.IsInRole(ApplicationRole.Administrator))
     {
-    <div class="col-md-3">
-        <h2>Administratie</h2>
-        <ul>
-            <li><a asp-page="/Orders/Index">Bestellingen Exporteren</a></li>
-            <li><a asp-page="/Products/Index">Producten Beheren</a></li>
+            <li><a asp-page="/Products/Index">@Localized["Manage products"]</a></li>
+    }
         </ul>
     </div>
-    }
 </div>
