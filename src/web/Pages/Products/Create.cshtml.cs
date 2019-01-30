@@ -33,7 +33,7 @@ namespace Strover.Pages.Products
                 return Page();
             }
 
-            uint currentMax = 1;
+            uint currentMax = 0;
             if (_context.Product.Any())
             {
                 //although unlikely it can collide in parallel sessions
