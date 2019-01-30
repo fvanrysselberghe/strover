@@ -13,14 +13,47 @@
     <dl class="dl-horizontal">
         <!-- Buyer details -->
         <dt>
-            @Html.DisplayNameFor(model => model.Order.Buyer)
+            @Html.DisplayNameFor(model => model.Order.Buyer.Name)
         </dt>    
         <dd>
             @Html.DisplayFor(model => model.Order.Buyer.Name)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Buyer.TelephoneNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.Buyer.TelephoneNumber)
+        </dd>
+        <hr />
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Delivery.DeliveryAddress.Street)
+        </dt>    
+        <dd>
+            @Html.DisplayFor(model => model.Order.Delivery.DeliveryAddress.Street)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Delivery.DeliveryAddress.Number)
+        </dt>    
+        <dd>
+            @Html.DisplayFor(model => model.Order.Delivery.DeliveryAddress.Number)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Delivery.DeliveryAddress.City)
+        </dt>    
+        <dd>
+            @Html.DisplayFor(model => model.Order.Delivery.DeliveryAddress.City)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Delivery.Comments)
+        </dt>    
+        <dd>
+            @Html.DisplayFor(model => model.Order.Delivery.Comments)
+        </dd>
+        <hr />
 
         <!-- Order selection --> 
-        @foreach (var orderedItem in Model.Order.OrderedItems) {
+        @foreach (var orderedItem in Model.Order.OrderedItems.OrderBy(item => item.Product.SequenceNumber)) {
             <dt>
                 @orderedItem.Product.Name
             </dt>
