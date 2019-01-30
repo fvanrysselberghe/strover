@@ -27,8 +27,9 @@ namespace Strover.Pages.Orders
         {
             //View like in the standard ordering leaflets, i.e. lines for each product.
             //We therefore create dummy order lines for each product
-            ProductIds = _context.Product.Select(product => product.ProductId).ToList();
-            ProductNames = _context.Product.Select(product => product.Name).ToList();
+            var products = _context.Product.OrderBy(product => product.SequenceNumber).ToArray();
+            ProductIds = products.Select(product => product.ProductId).ToList();
+            ProductNames = products.Select(product => product.Name).ToList();
             OrderedQuantities = Enumerable.Repeat(element: 0u, count: ProductIds.Count).ToList();
 
             return Page();

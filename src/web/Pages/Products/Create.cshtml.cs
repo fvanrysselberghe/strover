@@ -33,6 +33,15 @@ namespace Strover.Pages.Products
                 return Page();
             }
 
+            uint currentMax = 1;
+            if (_context.Product.Any())
+            {
+                //although unlikely it can collide in parallel sessions
+                //We'll resolve it later, e.g. GUI
+                currentMax = _context.Product.Max(person => person.SequenceNumber);
+            }
+
+            Product.SequenceNumber = ++currentMax;
             _context.Product.Add(Product);
             await _context.SaveChangesAsync();
 

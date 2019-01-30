@@ -15,5 +15,7 @@ namespace Strover.Models
         // Price of the product
         public decimal Price { get; set; }
 
+        public uint SequenceNumber { get; set; }
+
     }
 }
