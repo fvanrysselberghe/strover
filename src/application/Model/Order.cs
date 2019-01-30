@@ -14,6 +14,10 @@ namespace Strover.Models
 
         public bool Delivered { get; set; }
 
+        public string DeliveryMethodId { get; set; }
+
+        public virtual DeliveryMethod Delivery { get; set; }
+
         public virtual ICollection<OrderedItem> OrderedItems { get; set; }
         public virtual Customer Buyer { get; set; }
 

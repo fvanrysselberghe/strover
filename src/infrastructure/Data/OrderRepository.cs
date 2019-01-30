@@ -38,6 +38,8 @@ namespace Strover.Infrastructure.Data
                 .Include(order => order.OrderedItems)
                     .ThenInclude(orderedItem => orderedItem.Product)
                 .Include(order => order.Buyer)
+                .Include(order => order.Delivery)
+                    .ThenInclude(delivery => delivery.DeliveryAddress)
                 .ToListAsync();
         }
 
@@ -48,6 +50,8 @@ namespace Strover.Infrastructure.Data
                 .Include(order => order.OrderedItems)
                     .ThenInclude(orderedItem => orderedItem.Product)
                 .Include(order => order.Buyer)
+                .Include(order => order.Delivery)
+                    .ThenInclude(delivery => delivery.DeliveryAddress)
                 .ToListAsync();
         }
 
@@ -56,8 +60,10 @@ namespace Strover.Infrastructure.Data
             return await _context.Order
                 .Where(order => order.OrderId == orderId)
                 .Include(order => order.OrderedItems)
-                   .ThenInclude(OrderedItem => OrderedItem.Product)
+                   .ThenInclude(orderedItem => orderedItem.Product)
                 .Include(order => order.Buyer)
+                .Include(order => order.Delivery)
+                    .ThenInclude(delivery => delivery.DeliveryAddress)
                 .SingleOrDefaultAsync();
         }
 

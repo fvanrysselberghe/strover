@@ -18,12 +18,13 @@ namespace Strover.Application.Services
             sellerRepository = sellers;
         }
 
-        public void RegisterOrder(string buyerId, string sellerId, IDictionary<string, uint> selection)
+        public void RegisterOrder(string buyerId, string sellerId, IDictionary<string, uint> selection, DeliveryMethod delivery)
         {
             var newOrder = new Order();
 
             newOrder.BuyerId = buyerId;
             newOrder.SellerId = sellerId;
+            newOrder.Delivery = delivery;
 
             // #todo_rewrite move to order
             var itemList = new List<OrderedItem>();
@@ -44,7 +45,7 @@ namespace Strover.Application.Services
             // #TODO error handling, e.g. network failure
             buyerRepository.Add(request.Buyer);
 
-            RegisterOrder(request.Buyer.ID, request.Seller.ID, request.Items);
+            RegisterOrder(request.Buyer.ID, request.Seller.ID, request.Items, request.DeliveryMethod);
         }
     }
 }
