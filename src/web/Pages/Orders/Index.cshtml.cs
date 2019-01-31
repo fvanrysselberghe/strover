@@ -17,8 +17,13 @@ namespace Strover.Pages.Orders
     {
         private const string ContentTypeExcel = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
         private readonly IOrderRepository _orderStore;
+        private readonly DataStoreContext _context;
 
-        public IndexModel(IOrderRepository orderStore) => _orderStore = orderStore;
+        public IndexModel(IOrderRepository orderStore, DataStoreContext productStore)
+        {
+            _orderStore = orderStore;
+            _context = productStore;
+        }
 
         public IList<Order> Order { get; set; } /// Orders that are active
 
@@ -42,22 +47,56 @@ namespace Strover.Pages.Orders
         {
             Order = await PopulateMyListOfOrders();
 
-            var excelFileContent = AsExcel(Order);
+            var excelFileContent = AsExcel(Order, GetProducts());
             return new FileContentResult(excelFileContent, ContentTypeExcel);
         }
 
-        private byte[] AsExcel(ICollection<Order> orders)
+        private byte[] AsExcel(ICollection<Order> orders, List<Product> products)
         {
             var document = new XSSFWorkbook();
             var sheet = document.CreateSheet("Details");
 
-            CreateHeader(sheet);
+            CreateHeader(sheet, products);
 
             Int32 rowNum = 1;
             foreach (var order in orders)
             {
                 var row = sheet.CreateRow(rowNum);
                 row.CreateCell(0).SetCellValue(order.BuyerId);
+
+                UInt16 colNbr = 0;
+                row.CreateCell(colNbr++).SetCellValue(order.Buyer.Name);
+                row.CreateCell(colNbr++).SetCellValue("");
+
+                if (order.Delivery.DeliveryType == DeliveryType.Delivery)
+                {
+                    row.CreateCell(colNbr++).SetCellValue(order.Delivery.DeliveryAddress.Street);
+                    row.CreateCell(colNbr++).SetCellValue(order.Delivery.DeliveryAddress.Number);
+                    row.CreateCell(colNbr++).SetCellValue("");
+                    row.CreateCell(colNbr++).SetCellValue(order.Delivery.DeliveryAddress.City);
+                }
+                else
+                {
+                    colNbr += 4;
+                }
+
+                row.CreateCell(colNbr++).SetCellValue(order.Buyer.TelephoneNumber);
+
+                foreach (var product in products)
+                {
+                    var productItem = order.OrderedItems.FirstOrDefault(orderedItem => orderedItem.ProductId == product.ProductId);
+
+                    if (productItem == null)
+                        row.CreateCell(colNbr++).SetCellValue(0);
+                    else
+                        row.CreateCell(colNbr++).SetCellValue(productItem.Quantity);
+                }
+                row.CreateCell(colNbr++).SetCellValue(order.OrderedQuantity);
+                row.CreateCell(colNbr++).SetCellValue(order.Cost.ToString());
+                row.CreateCell(colNbr++).SetCellValue(order.Delivery.DeliveryType == DeliveryType.Pickup);
+                row.CreateCell(colNbr++).SetCellValue(order.Delivery.Comments);
+                row.CreateCell(colNbr++).SetCellValue(order.SellerId);
+                row.CreateCell(colNbr++).SetCellValue("?");
 
                 ++rowNum;
             }
@@ -68,13 +107,35 @@ namespace Strover.Pages.Orders
             // #TODO replace by better construct, e.g. temporary file?
             return stream.ToArray();
         }
-        private void CreateHeader(NPOI.SS.UserModel.ISheet sheet)
+
+        List<Product> GetProducts()
+        {
+            return _context.Product.OrderBy(product => product.SequenceNumber).ToList();
+        }
+        private void CreateHeader(NPOI.SS.UserModel.ISheet sheet, List<Product> products)
         {
             var row = sheet.CreateRow(0);
-            row.CreateCell(0).SetCellValue("koper");
 
-            //koper_naam, koper_voornaam, koper_straat, koper_straat_nr, koper_bus, koper_gemeente, koper_telefoon, <producten>,totaal [#producten], totaal_betaald,	haalt_zelf_af,	opmerkingen, verkoper_naam,	klas, verkoper, unified address ,geocode       }
+            UInt16 colNbr = 0;
+            row.CreateCell(colNbr++).SetCellValue("koper_naam");
+            row.CreateCell(colNbr++).SetCellValue("koper_voornaam");
+            row.CreateCell(colNbr++).SetCellValue("koper_straat");
+            row.CreateCell(colNbr++).SetCellValue("koper_straat_nr");
+            row.CreateCell(colNbr++).SetCellValue("koper_bus");
+            row.CreateCell(colNbr++).SetCellValue("koper_gemeente");
+            row.CreateCell(colNbr++).SetCellValue("koper_telefoon");
 
+            //, <producten>,totaal [#producten], totaal_betaald,	
+            foreach (var product in products)
+            {
+                row.CreateCell(colNbr++).SetCellValue(product.Name);
+            }
+            row.CreateCell(colNbr++).SetCellValue("totaal");
+            row.CreateCell(colNbr++).SetCellValue("totaal_betaald");
+            row.CreateCell(colNbr++).SetCellValue("haalt_zelf_af");
+            row.CreateCell(colNbr++).SetCellValue("opmerkingen");
+            row.CreateCell(colNbr++).SetCellValue("verkoper_naam");
+            row.CreateCell(colNbr++).SetCellValue("klas");
         }
     }
 }
