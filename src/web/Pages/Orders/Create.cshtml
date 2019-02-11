@@ -20,10 +20,12 @@
             <div class="form-group">
                 <label asp-for="BuyerName" class="control-label"></label>
                 <input asp-for="BuyerName" class="form-control"/>
+                <span asp-validation-for="BuyerName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="BuyerPhone" class="control-group"></label>
                 <input asp-for="BuyerPhone" class="form-control" />
+                <span asp-validation-for="BuyerPhone" class="text-danger"></span>
             </div>
             <hr />
             
@@ -64,6 +66,7 @@
                     <input type="hidden" asp-for="ProductIds[i]" class="form-control" />                   
                     <input asp-for="OrderedQuantities[i]" class="form-control"/>
                 </div>
+                <span asp-validation-for="OrderedQuantities" class="text-danger"></span>
             }
 
             <div class="form-group">
