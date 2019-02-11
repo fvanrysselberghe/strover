@@ -32,6 +32,10 @@
                 <label asp-for="WillBePickedUp" class="control-label"></label>
                 <input asp-for="WillBePickedUp" class="form-control" />
             </div>
+            <div class ="form-group">
+                <label asp-for="WillBeDelivered" class="control-label"></label>
+                <input asp-for="WillBeDelivered" class="form-control" />
+            </div>
             <div id="deliveryDetails">
                 <div class="form-group">
                     <label asp-for="DeliveryStreet" class="control-label"></label>
@@ -81,10 +85,36 @@
         $('#WillBePickedUp').change( function(event) 
         {
         if (event.target.checked)
+            {
+            $('#WillBeDelivered').prop('checked', false);
             $('#deliveryDetails').hide();
+            }
         else
+            {
+            $('#WillBeDelivered').prop('checked', true);
             $('#deliveryDetails').show();
+            }
         });
     });
     </script>
+
+    <script>
+    $(document).ready(function () {
+        $('#WillBeDelivered').change( function(event) 
+        {
+        if (event.target.checked)
+            {
+            $('#WillBePickedUp').prop('checked', false);
+            $('#deliveryDetails').show();
+            }
+        else
+            {
+            $('#WillBePickedUp').prop('checked', true);
+            $('#deliveryDetails').hide();
+            }
+        });
+    });
+    </script>
+
+    
 }

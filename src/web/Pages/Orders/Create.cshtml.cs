@@ -31,6 +31,8 @@ namespace Strover.Pages.Orders
             ProductIds = products.Select(product => product.ProductId).ToList();
             ProductNames = products.Select(product => product.Name).ToList();
             OrderedQuantities = Enumerable.Repeat(element: 0u, count: ProductIds.Count).ToList();
+            WillBePickedUp = false;
+            WillBeDelivered = !WillBePickedUp;
 
             return Page();
         }
@@ -46,9 +48,14 @@ namespace Strover.Pages.Orders
         public string BuyerPhone { get; set; }
 
         // Group into Model
-        [Display(Name = "Will Be Picked Up")]
+        [Display(Name = "Will be picked up on March 23 between 9h and 12h at kleuterschool Antoontje")]
         [BindProperty]
         public bool WillBePickedUp { get; set; }
+
+        [Display(Name = "Will be delivered at home on March 23 between 9h and 13h at the address given below (only Sint-Antonius, Zoersel, Halle, Schilde or Westmalle")]
+        [BindProperty]
+        public bool WillBeDelivered { get; set; }
+
 
         [Display(Name = "Street")]
         [BindProperty]
