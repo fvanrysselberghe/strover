@@ -77,6 +77,7 @@ namespace Strover.Pages.Orders
         [BindProperty]
         public List<String> ProductIds { get; set; }
 
+        [BindProperty]
         public List<String> ProductNames { get; set; }
 
         [BindProperty]
@@ -88,6 +89,8 @@ namespace Strover.Pages.Orders
             {
                 return Page();
             }
+            if (!OrderedQuantities.Any(selectedQuantity => selectedQuantity > 0))
+                return Page();
 
             _service.RegisterOrder(asOrderRequest()); //&address &delivery or register order, add delivery & accept order? add action dimension
 
