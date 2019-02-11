@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Http;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Strover
 {
@@ -73,7 +74,9 @@ namespace Strover
                .AddViewLocalization(
                     LanguageViewLocationExpanderFormat.Suffix,
                     opts => { opts.ResourcesPath = "Resources"; })
-                .AddDataAnnotationsLocalization();
+                .AddDataAnnotationsLocalization()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
 
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<ISellerRepository, SellerRepository>();

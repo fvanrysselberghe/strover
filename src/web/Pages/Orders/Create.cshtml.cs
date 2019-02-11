@@ -81,6 +81,7 @@ namespace Strover.Pages.Orders
         public List<String> ProductNames { get; set; }
 
         [BindProperty]
+        [AtLeastOneItem(ErrorMessage = "At leat one item should be selected")]
         public List<uint> OrderedQuantities { get; set; } //Each request starts with a new instance of the view -> add id as hidden field with the quantity
 
         public IActionResult OnPost()
@@ -89,8 +90,6 @@ namespace Strover.Pages.Orders
             {
                 return Page();
             }
-            if (!OrderedQuantities.Any(selectedQuantity => selectedQuantity > 0))
-                return Page();
 
             _service.RegisterOrder(asOrderRequest()); //&address &delivery or register order, add delivery & accept order? add action dimension
 
