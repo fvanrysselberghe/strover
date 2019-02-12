@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using NPOI.XSSF.UserModel;
 using Strover.Application;
 using Strover.Application.Interfaces;
+using Strover.Infrastructure.Data;
 using Strover.Models;
 
 namespace Strover.Pages.Orders
@@ -19,10 +21,13 @@ namespace Strover.Pages.Orders
         private readonly IOrderRepository _orderStore;
         private readonly DataStoreContext _context;
 
-        public IndexModel(IOrderRepository orderStore, DataStoreContext productStore)
+        private readonly UserManager<SalesPerson> _users;
+
+        public IndexModel(IOrderRepository orderStore, DataStoreContext productStore, UserManager<SalesPerson> users)
         {
             _orderStore = orderStore;
             _context = productStore;
+            _users = users;
         }
 
         public IList<Order> Order { get; set; } /// Orders that are active
@@ -47,11 +52,11 @@ namespace Strover.Pages.Orders
         {
             Order = await PopulateMyListOfOrders();
 
-            var excelFileContent = AsExcel(Order, GetProducts());
+            var excelFileContent = AsExcel(Order, GetProducts(), GetSellers());
             return new FileContentResult(excelFileContent, ContentTypeExcel);
         }
 
-        private byte[] AsExcel(ICollection<Order> orders, List<Product> products)
+        private byte[] AsExcel(ICollection<Order> orders, List<Product> products, List<SalesPerson> sellers)
         {
             var document = new XSSFWorkbook();
             var sheet = document.CreateSheet("Details");
@@ -95,8 +100,19 @@ namespace Strover.Pages.Orders
                 row.CreateCell(colNbr++).SetCellValue(order.Cost.ToString());
                 row.CreateCell(colNbr++).SetCellValue(order.Delivery.DeliveryType == DeliveryType.Pickup);
                 row.CreateCell(colNbr++).SetCellValue(order.Delivery.Comments);
-                row.CreateCell(colNbr++).SetCellValue(order.SellerId);
-                row.CreateCell(colNbr++).SetCellValue("?");
+
+                var completeSeller = sellers.FirstOrDefault(seller => seller.UserName == order.SellerId);
+                if (completeSeller != null)
+                {
+                    row.CreateCell(colNbr++).SetCellValue(completeSeller.Name);
+                    row.CreateCell(colNbr++).SetCellValue(completeSeller.Class);
+                }
+                else
+                {
+                    row.CreateCell(colNbr++).SetCellValue("");
+                    row.CreateCell(colNbr++).SetCellValue("");
+                }
+
 
                 ++rowNum;
             }
@@ -111,6 +127,11 @@ namespace Strover.Pages.Orders
         List<Product> GetProducts()
         {
             return _context.Product.OrderBy(product => product.SequenceNumber).ToList();
+        }
+
+        List<SalesPerson> GetSellers()
+        {
+            return _users.Users.ToList();
         }
         private void CreateHeader(NPOI.SS.UserModel.ISheet sheet, List<Product> products)
         {
