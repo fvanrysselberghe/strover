@@ -25,7 +25,24 @@
             @Html.DisplayFor(model => model.Order.Buyer.TelephoneNumber)
         </dd>
         <hr />
-        
+
+        @if (Model.Order.Delivery.DeliveryType == Strover.Models.DeliveryType.Pickup)
+        {
+        <dt>
+              Pickup details
+        </dt>
+        <dd>
+            Will be picked up on March 23 between 9h and 12h at kleuterschool Antoontje
+        </dd>  
+        }
+        else
+        {
+        <dt>
+            Delivery details
+        </dt>
+        <dd>
+            Will be delivered at home on March 23 between 9h and 13h at the address given below (only Sint-Antonius, Zoersel, Halle, Schilde or Westmalle
+        </dd>  
         <dt>
             @Html.DisplayNameFor(model => model.Order.Delivery.DeliveryAddress.Street)
         </dt>    
@@ -50,6 +67,7 @@
         <dd>
             @Html.DisplayFor(model => model.Order.Delivery.Comments)
         </dd>
+        }
         <hr />
 
         <!-- Order selection --> 
@@ -58,9 +76,16 @@
                 @orderedItem.Product.Name
             </dt>
             <dd>
-                @orderedItem.Quantity
+                @orderedItem.Quantity (@orderedItem.Product.Price eur/stuk)
             </dd>
         }
+
+        <dt>
+            total
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.Cost) euro
+        </dd>
     </dl>
 </div>
 <div>
