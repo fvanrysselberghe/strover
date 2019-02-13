@@ -12,12 +12,14 @@ using Strover.Application;
 using Strover.Application.Interfaces;
 using Strover.Application.Services;
 using Strover.Infrastructure.Data;
+using Strover.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Strover
 {
@@ -108,6 +110,8 @@ namespace Strover
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
             });
+
+            services.AddTransient<IEmailSender, SendGridMailSender>();
 
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
