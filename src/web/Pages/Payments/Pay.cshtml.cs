@@ -54,14 +54,14 @@ namespace Strover.Pages.Payments
             _store.Payment.Update(payment);
             _store.SaveChanges();
 
-            return RedirectToPage("/Index");
+            return RedirectToPage("/Orders/Index");
         }
 
         public IActionResult OnGetCancel(string paymentId)
         {
             //We created the payment as cancelled, user bailed out
             // => safely return
-            return RedirectToPage("/Index");
+            return RedirectToPage("/Orders/Index");
         }
 
 
