@@ -177,7 +177,7 @@ namespace Strover.Pages.Orders
             {
                 Reference = "to be replaced by a real reference", // #TODO
                 Amount = amountToPay,
-                State = PaymentState.BeingProcessed
+                State = PaymentState.Cancelled //Only switch state when the user confirmed payment
             };
             _context.Payment.Add(newPayment);
 

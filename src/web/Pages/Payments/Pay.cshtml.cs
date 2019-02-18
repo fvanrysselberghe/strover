@@ -44,21 +44,23 @@ namespace Strover.Pages.Payments
 
         public IActionResult OnPost(string paymentId)
         {
-            //payment created as pending => nothing to do
+            //We created the payment as cancelled, user confirmed payment
+            //=> Switch to processing
+            var payment = _store.Payment.Find(paymentId);
+            if (payment == null)
+                return NotFound();
+
+            payment.State = PaymentState.BeingProcessed;
+            _store.Payment.Update(payment);
+            _store.SaveChanges();
+
             return RedirectToPage("/Index");
         }
 
         public IActionResult OnGetCancel(string paymentId)
         {
-            var payment = _store.Payment.Find(paymentId);
-
-            if (payment == null)
-                return RedirectToPage("/Index");
-
-            payment.State = PaymentState.Cancelled;
-            _store.Payment.Update(payment);
-            _store.SaveChanges();
-
+            //We created the payment as cancelled, user bailed out
+            // => safely return
             return RedirectToPage("/Index");
         }
 
