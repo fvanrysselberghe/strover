@@ -51,5 +51,22 @@ namespace Strover.Models
 
         public virtual ICollection<OrderPayments> Payments { get; set; }
 
+        public PaymentState PaymentState
+        {
+            get
+            {
+                var payments = Payments;
+                if (payments == null)
+                    return PaymentState.Cancelled;
+
+                if (payments.Any(orderPayment => orderPayment.Payment.State == PaymentState.Paid))
+                    return PaymentState.Paid;
+                else if (payments.Any(OrderPayments => OrderPayments.Payment.State == PaymentState.BeingProcessed))
+                    return PaymentState.BeingProcessed;
+                else
+                    return PaymentState.Cancelled;
+            }
+        }
+
     }
 }

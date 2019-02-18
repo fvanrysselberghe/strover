@@ -1,5 +1,6 @@
 @page
 @model Strover.Pages.Orders.IndexModel
+@using Strover.Models;
 
 @{
     ViewData["Title"] = "Index";
@@ -22,6 +23,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Order[0].Cost)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Order[0].PaymentState)  
+                </th>
                 <th/>
         </tr>
     </thead>
@@ -36,6 +40,17 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                @if (item.PaymentState == PaymentState.Paid){
+                    @Html.Raw("Paid");    
+                }
+                else if (item.PaymentState == PaymentState.BeingProcessed){
+                    @Html.Raw("Pending");                    
+                }
+                else {
+                    @Html.Raw("")
+                }
             </td>
             <td>
                 <a asp-page="./Details" asp-route-id="@item.OrderId">Details</a> |
