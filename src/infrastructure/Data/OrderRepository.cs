@@ -40,6 +40,8 @@ namespace Strover.Infrastructure.Data
                 .Include(order => order.Buyer)
                 .Include(order => order.Delivery)
                     .ThenInclude(delivery => delivery.DeliveryAddress)
+                .Include(order => order.Payments)
+                    .ThenInclude(payment => payment.Payment)
                 .ToListAsync();
         }
 
@@ -52,6 +54,8 @@ namespace Strover.Infrastructure.Data
                 .Include(order => order.Buyer)
                 .Include(order => order.Delivery)
                     .ThenInclude(delivery => delivery.DeliveryAddress)
+                .Include(order => order.Payments)
+                    .ThenInclude(payment => payment.Payment)
                 .ToListAsync();
         }
 
@@ -64,6 +68,8 @@ namespace Strover.Infrastructure.Data
                 .Include(order => order.Buyer)
                 .Include(order => order.Delivery)
                     .ThenInclude(delivery => delivery.DeliveryAddress)
+                .Include(order => order.Payments)
+                    .ThenInclude(payment => payment.Payment)
                 .SingleOrDefaultAsync();
         }
 

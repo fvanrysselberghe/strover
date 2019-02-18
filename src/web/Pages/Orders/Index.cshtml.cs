@@ -158,5 +158,60 @@ namespace Strover.Pages.Orders
             row.CreateCell(colNbr++).SetCellValue("verkoper_naam");
             row.CreateCell(colNbr++).SetCellValue("klas");
         }
+        public async Task<IActionResult> OnGetPay()
+        {
+            //get orders which aren't paid yet
+            var myOrders = await PopulateMyListOfOrders();
+            ICollection<Order> ordersWithoutPayment = GetOrdersWithoutPayment(myOrders);
+
+            if (ordersWithoutPayment.Count == 0)
+            {
+                Order = await PopulateMyListOfOrders();
+                return Page();
+            }
+
+            decimal amountToPay = ordersWithoutPayment.Sum(order => order.Cost);
+
+            //create a payment and assign to them
+            var newPayment = new Payment()
+            {
+                Reference = "to be replaced by a real reference", // #TODO
+                Amount = amountToPay,
+                State = PaymentState.BeingProcessed
+            };
+            _context.Payment.Add(newPayment);
+
+            //store the orders with their payment;
+            foreach (var order in ordersWithoutPayment)
+            {
+                var orderPaymentLink = new OrderPayments()
+                {
+                    OrderId = order.OrderId,
+                    PaymentId = newPayment.ID
+                };
+                _context.OrderPayment.Add(orderPaymentLink);
+            }
+
+            _context.SaveChanges();
+
+            //redirect to payment page
+            return RedirectToPage("/Payments/Pay", new { paymentId = newPayment.ID });
+        }
+
+        private ICollection<Order> GetOrdersWithoutPayment(IList<Order> ordersToCheck)
+        {
+            List<Order> withoutPayment = new List<Order>();
+
+            foreach (var order in ordersToCheck)
+            {
+                if (order.Payments == null
+                || order.Payments.Count() == 0
+                || order.Payments.All(orderPayment => orderPayment.Payment.State == PaymentState.Cancelled))
+                    withoutPayment.Add(order);
+            }
+
+            return withoutPayment;
+        }
     }
+
 }

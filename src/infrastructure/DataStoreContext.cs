@@ -17,10 +17,15 @@ namespace Strover.Models
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
+
+            builder.Entity<OrderPayments>().HasKey(joining => new { joining.OrderId, joining.PaymentId });
         }
         public DbSet<Order> Order { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<Customer> Buyer { get; set; }
         public DbSet<SalesPersonWrapper> Seller { get; set; }
+
+        public DbSet<Payment> Payment { get; set; }
+        public DbSet<OrderPayments> OrderPayment { get; set; }
     }
 }

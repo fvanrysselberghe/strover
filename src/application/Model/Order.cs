@@ -49,6 +49,7 @@ namespace Strover.Models
             }
         }
 
+        public virtual ICollection<OrderPayments> Payments { get; set; }
 
     }
 }

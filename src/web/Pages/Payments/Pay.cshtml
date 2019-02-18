@@ -1,0 +1,28 @@
+@page 
+@model Strover.Pages.Payments.PayModel
+
+    <h2>Pay</h2>
+
+    <p>
+        <div id="PaymentCode"></div>
+        <form method="post">
+            <input type="hidden" asp-for="PaymentId"/>
+            <input type="submit" value="Done" class="btn btn-default"/>
+        </form>
+        <a asp-page-handler="Cancel" asp-route-paymentid="@Model.PaymentId">Cancel</a>
+    </p>
+
+@section Scripts
+{
+    <script type="text/javascript" src="~/lib/qrcode/qrcode.js"></script>
+    <script type="text/javascript">
+        var qrcode = new QRCode(document.getElementById("PaymentCode"), {
+            text : "@Html.Raw(Model.PayCode)",
+            width: 128,
+            height: 128,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.M
+        });
+    </script>
+}
