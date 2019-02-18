@@ -175,7 +175,6 @@ namespace Strover.Pages.Orders
             //create a payment and assign to them
             var newPayment = new Payment()
             {
-                Reference = "to be replaced by a real reference", // #TODO
                 Amount = amountToPay,
                 State = PaymentState.Cancelled //Only switch state when the user confirmed payment
             };
