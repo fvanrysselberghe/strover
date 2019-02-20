@@ -4,5 +4,6 @@ namespace Strover.Models
     {
         public string LegalName { get; set; }
         public string AccountNumber { get; set; }
+        public string Email { get; set; }
     }
 }

@@ -3,18 +3,24 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using Strover.Models;
 using System.Threading.Tasks;
 
 namespace Strover.Infrastructure.Services
 {
     public class SendGridMailSender : IEmailSender
     {
-        public SendGridMailSender(IConfiguration config)
+        public SendGridMailSender(IConfiguration config, IOptions<ShopOptions> shopConfiguration)
         {
             ApiKey = config.GetValue<string>("SENDGRID_APIKEY");
+
+            var shop = shopConfiguration.Value;
+            Sender = new EmailAddress(shop.Email, shop.LegalName);
         }
 
-        public string ApiKey { get; }
+        private string ApiKey { get; }
+        private EmailAddress Sender { get; }
+
 
         public Task SendEmailAsync(string email, string subject, string message)
         {
@@ -26,7 +32,7 @@ namespace Strover.Infrastructure.Services
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("Joe@contoso.com", "Joe Smith"),
+                From = Sender,
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message
