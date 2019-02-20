@@ -43,6 +43,18 @@ namespace Strover
                 .AddEntityFrameworkStores<DataStoreContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                //don't impose strange rules on passwords
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+
+                //instead impose long passwords
+                options.Password.RequiredLength = 8;
+            });
         }
 
         public void ConfigureDevelopmentServices(IServiceCollection services)
