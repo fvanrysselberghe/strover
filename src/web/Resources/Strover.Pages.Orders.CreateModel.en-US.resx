@@ -123,8 +123,11 @@
   <data name="Telephone Number" xml:space="preserve">
     <value>Telephone Number</value>
   </data>
-  <data name="Will Be Picked Up" xml:space="preserve">
-    <value>Will be picked up by customer</value>
+   <data name="Will be picked up (March 23 between 9h and 12h) at kleuterschool Antoontje" xml:space="preserve">
+    <value>Will be picked up (March 23 between 9h and 12h) at kleuterschool Antoontje"</value>
+  </data>
+  <data name="Delivered at home (March 23 between 9h and 12h) in Sint-Antonius, Zoersel, Halle and Westmalle" xml:space="preserve">
+    <value>Delivered at home (March 23 between 9h and 12h) in Sint-Antonius, Zoersel, Halle and Westmalle</value>
   </data>
   <data name="Street" xml:space="preserve">
     <value>Streetname</value>
