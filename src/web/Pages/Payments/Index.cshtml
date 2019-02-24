@@ -1,0 +1,45 @@
+@page
+@model Strover.Pages.Payments.IndexModel
+@using Strover.Models;
+
+@{
+    ViewData["Title"] = @Localized["Payments"];
+}
+
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localized
+
+<h2>@Localized["Payments"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Localized["Reference"]
+                </th>
+                <th>
+                    @Localized["Amount"]
+                </th>
+                <th>
+                    @Localized["State"]
+                </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Payments) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                <a asp-page="./Paid" asp-route-id="@item.ID">@Localized["Mark paid"]</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

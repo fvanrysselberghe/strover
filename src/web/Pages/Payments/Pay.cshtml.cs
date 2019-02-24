@@ -63,6 +63,9 @@ namespace Strover.Pages.Payments
         {
             //We created the payment as cancelled, user confirmed payment
             //=> Switch to processing
+            if (paymentId == null)
+                return NotFound();
+
             var payment = _store.Payment.Find(paymentId);
             if (payment == null)
                 return NotFound();
