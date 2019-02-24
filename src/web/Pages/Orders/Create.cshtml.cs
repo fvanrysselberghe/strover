@@ -70,7 +70,7 @@ namespace Strover.Pages.Orders
         [BindProperty]
         public bool WillBePickedUp { get; set; }
 
-        [Display(Name = "Delivered at home (March 23 between 9h and 12h) in Sint-Antonius, Zoersel, Halle and Westmalle")]
+        [Display(Name = "Delivered at home (March 23 between 9h and 12h) in Sint-Antonius, Zoersel, Halle, Schilde and Westmalle")]
         [BindProperty]
         public bool WillBeDelivered { get; set; }
 
