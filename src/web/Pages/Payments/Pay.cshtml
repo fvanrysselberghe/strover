@@ -41,7 +41,7 @@
     <div id="PaymentCode"></div>
     <form method="post">
         <input type="hidden" asp-for="PaymentId"/>
-        <input type="submit" value="Paid" class="btn btn-default"/>
+        <input type="submit" value=@Localized["Paid"] class="btn btn-default">
     </form>
     <a asp-page-handler="Cancel" asp-route-paymentid="@Model.PaymentId">@Localized["Cancel"]</a>
     </p>
