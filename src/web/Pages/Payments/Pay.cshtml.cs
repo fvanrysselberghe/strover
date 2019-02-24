@@ -22,7 +22,7 @@ namespace Strover.Pages.Payments
         public string Message { get; set; }
 
         [Display(Name = "Amount")]
-        public decimal Amount { get; set; };
+        public decimal Amount { get; set; }
 
         private readonly ShopOptions _shopConfig;
 
