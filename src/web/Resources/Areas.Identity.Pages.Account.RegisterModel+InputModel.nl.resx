@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Full name" xml:space="preserve">
-    <value>Voor- en achternaam</value>
+  <data name="Full name seller" xml:space="preserve">
+    <value>Voor- en achternaam verkoper</value>
   </data>
   <data name="Class" xml:space="preserve">
     <value>Klas</value>

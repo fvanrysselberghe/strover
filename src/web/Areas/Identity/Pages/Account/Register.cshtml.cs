@@ -42,7 +42,7 @@ namespace web.Areas.Identity.Pages.Account
         {
             [Required]
             [DataType(DataType.Text)]
-            [Display(Name = "Full name")]
+            [Display(Name = "Full name seller")]
             public string Name { get; set; }
 
             [Required]
