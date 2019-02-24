@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
@@ -10,10 +11,18 @@ namespace Strover.Pages.Payments
     {
         public string PayCode;
         public string PaymentId;
-        public string Beneficiary;
-        public string AccountNumber;
-        public string Message;
-        public decimal Amount;
+
+        [Display(Name = "Beneficiary")]
+        public string Beneficiary { get; set; }
+
+        [Display(Name = "Account number")]
+        public string AccountNumber { get; set; }
+
+        [Display(Name = "Reference")]
+        public string Message { get; set; }
+
+        [Display(Name = "Amount")]
+        public decimal Amount { get; set; };
 
         private readonly ShopOptions _shopConfig;
 

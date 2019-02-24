@@ -1,44 +1,49 @@
 @page 
 @model Strover.Pages.Payments.PayModel
 
-    <h2>Pay</h2>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localized
 
-    <h3>Pay using wire-transfer</h3>
-    <p>
-        Pay your orders using following transfer details or scan the QR-code
-        <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Beneficiary)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Beneficiary)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.AccountNumber)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AccountNumber)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Amount)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Amount)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Message)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Message)
-        </dd>
-    </dl>
+@{
+   ViewData["Title"] = @Localized["Pay by wire transfer"];
+}
 
-        <div id="PaymentCode"></div>
-        <form method="post">
-            <input type="hidden" asp-for="PaymentId"/>
-            <input type="submit" value="Done" class="btn btn-default"/>
-        </form>
-        <a asp-page-handler="Cancel" asp-route-paymentid="@Model.PaymentId">Cancel</a>
+<h2>@Localized["Pay by wire transfer"]</h2>
+
+<p>
+    @Localized["Make a wire transfer using the information below and click on the Paid-button. Some bank apps like Belfius and KBC allow you to create the wire transfer by scanning the QR code."]
+    <dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.Beneficiary)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Beneficiary)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.AccountNumber)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.AccountNumber)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Amount)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Amount)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Message)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Message)
+    </dd>
+</dl>
+
+    <div id="PaymentCode"></div>
+    <form method="post">
+        <input type="hidden" asp-for="PaymentId"/>
+        <input type="submit" value="Paid" class="btn btn-default"/>
+    </form>
+    <a asp-page-handler="Cancel" asp-route-paymentid="@Model.PaymentId">@Localized["Cancel"]</a>
     </p>
 
 @section Scripts
