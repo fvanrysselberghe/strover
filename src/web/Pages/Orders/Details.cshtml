@@ -1,25 +1,27 @@
 @page
 @model Strover.Pages.Orders.DetailsModel
 
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localized
+
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = @Localized["Details"];
 }
 
-<h2>Details</h2>
+<h2>@Localized["Details"]</h2>
 
 <div>
-    <h4>Order</h4>
+    <h4>@Localized["Order"]</h4>
     <hr />
     <dl class="dl-horizontal">
         <!-- Buyer details -->
         <dt>
-            @Html.DisplayNameFor(model => model.Order.Buyer.Name)
+            @Localized["Name"]
         </dt>    
         <dd>
             @Html.DisplayFor(model => model.Order.Buyer.Name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Order.Buyer.TelephoneNumber)
+            @Localized["Telephone number"]
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Order.Buyer.TelephoneNumber)
@@ -29,40 +31,40 @@
         @if (Model.Order.Delivery.DeliveryType == Strover.Models.DeliveryType.Pickup)
         {
         <dt>
-              Pickup details
+              @Localized["Pickup details"] 
         </dt>
         <dd>
-            Will be picked up on March 23 between 9h and 12h at kleuterschool Antoontje
+            @Localized["Will be picked up on March 23 between 9h and 12h at kleuterschool Antoontje"]
         </dd>  
         }
         else
         {
         <dt>
-            Delivery details
+            @Localized["Delivery details"]
         </dt>
         <dd>
-            Will be delivered at home on March 23 between 9h and 13h at the address given below (only Sint-Antonius, Zoersel, Halle, Schilde or Westmalle
+            @Localized["Will be delivered at home on March 23 between 9h and 13h at the address given below"]
         </dd>  
         <dt>
-            @Html.DisplayNameFor(model => model.Order.Delivery.DeliveryAddress.Street)
+            @Localized["Street"]
         </dt>    
         <dd>
             @Html.DisplayFor(model => model.Order.Delivery.DeliveryAddress.Street)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Order.Delivery.DeliveryAddress.Number)
+            @Localized["House number"]
         </dt>    
         <dd>
             @Html.DisplayFor(model => model.Order.Delivery.DeliveryAddress.Number)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Order.Delivery.DeliveryAddress.City)
+            @Localized["City"]
         </dt>    
         <dd>
             @Html.DisplayFor(model => model.Order.Delivery.DeliveryAddress.City)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Order.Delivery.Comments)
+            @Localized["Comments"]
         </dt>    
         <dd>
             @Html.DisplayFor(model => model.Order.Delivery.Comments)
@@ -81,20 +83,20 @@
         }
 
         <dt>
-            total
+            @Localized["Total"] 
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Order.Cost) euro
         </dd>
         <hr />
         <dt>
-            @Html.DisplayNameFor(model => model.Seller.Name)
+            @Localized["Name seller"]
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Seller.Name)
         </dd>
          <dt>
-            @Html.DisplayNameFor(model => model.Seller.Class)
+            @Localized["Class"]
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Seller.Class)
@@ -103,5 +105,5 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index">@Localized["Back to List"]</a>
 </div>
