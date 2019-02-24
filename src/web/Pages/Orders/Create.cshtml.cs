@@ -28,13 +28,31 @@ namespace Strover.Pages.Orders
             //View like in the standard ordering leaflets, i.e. lines for each product.
             //We therefore create dummy order lines for each product
             var products = _context.Product.OrderBy(product => product.SequenceNumber).ToArray();
-            ProductIds = products.Select(product => product.ProductId).ToList();
-            ProductNames = products.Select(product => product.Name).ToList();
-            OrderedQuantities = Enumerable.Repeat(element: 0u, count: ProductIds.Count).ToList();
+
+            ItemView = products.Select(product => new ItemModel()
+            {
+                ProductName = product.Name,
+                ProductId = product.ProductId,
+                Quantity = 0,
+                Price = product.Price
+            }).ToList();
+
             WillBePickedUp = false;
             WillBeDelivered = !WillBePickedUp;
 
             return Page();
+        }
+
+        public class ItemModel
+        {
+            public string ProductId { get; set; }
+
+            public string ProductName { get; set; }
+
+            [Range(0, int.MaxValue)]
+            public uint Quantity { get; set; }
+
+            public decimal Price { get; set; }
         }
 
         [Required(ErrorMessage = "Name Buyer Should Be Filled")]
@@ -73,16 +91,9 @@ namespace Strover.Pages.Orders
         [BindProperty]
         public String DeliveryComments { get; set; }
 
-        // Group into model
-        [BindProperty]
-        public List<String> ProductIds { get; set; }
-
-        [BindProperty]
-        public List<String> ProductNames { get; set; }
-
         [BindProperty]
         [AtLeastOneItem(ErrorMessage = "At leat one item should be selected")]
-        public List<uint> OrderedQuantities { get; set; } //Each request starts with a new instance of the view -> add id as hidden field with the quantity
+        public List<ItemModel> ItemView { get; set; }
 
         public IActionResult OnPost()
         {
@@ -131,11 +142,11 @@ namespace Strover.Pages.Orders
         private IDictionary<string, uint> createItemSelection()
         {
             var itemSelection = new Dictionary<string, uint>();
-            var nbrProducts = ProductIds.Count;
-            for (var index = 0; index < nbrProducts; ++index)
+
+            foreach (var item in ItemView)
             {
-                if (OrderedQuantities[index] > 0)
-                    itemSelection.Add(ProductIds[index], OrderedQuantities[index]);
+                if (item.Quantity > 0)
+                    itemSelection.Add(item.ProductId, item.Quantity);
             }
 
             return itemSelection;

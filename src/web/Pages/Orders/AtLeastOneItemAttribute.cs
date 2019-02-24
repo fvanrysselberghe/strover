@@ -8,11 +8,11 @@ namespace Strover.Pages.Orders
     {
         public override bool IsValid(object value)
         {
-            var list = value as IList<uint>;
+            var list = value as IList<CreateModel.ItemModel>;
             if (list == null)
                 return false;
 
-            return list.Any(v => v > 0);
+            return list.Any(v => v.Quantity > 0);
         }
     }
 

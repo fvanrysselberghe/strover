@@ -59,16 +59,19 @@
             <hr />
             
             <!-- Order selection --> 
-            @for (int i = 0; i < Model.ProductIds.Count; ++i) {
+            <div>
+            @for (int i = 0; i < Model.ItemView.Count; ++i) {
                 <div class="form-group">
-                    <label class="control-label">@Model.ProductNames[i]</label>
-                    <input type="hidden" asp-for="ProductNames[i]" class="form-control" /> 
-                    <input type="hidden" asp-for="ProductIds[i]" class="form-control" />                   
-                    <input asp-for="OrderedQuantities[i]" class="form-control"/>
-                </div>
-                <span asp-validation-for="OrderedQuantities" class="text-danger"></span>
-            }
-
+                    <label class="control-label">@Model.ItemView[i].ProductName (@Model.ItemView[i].Price EUR)</label>
+                    <input type="hidden" asp-for="ItemView[i].ProductName" /> 
+                    <input type="hidden" asp-for="ItemView[i].ProductId"/> 
+                    <input type="hidden" asp-for="ItemView[i].Price"/>                  
+                    <input asp-for="ItemView[i].Quantity" class="form-control"/>
+                    <span asp-validation-for="ItemView[i].Quantity" class="text-danger" />
+                </div>    
+            } 
+                <span asp-validation-for="ItemView" class="text-danger"></span>
+            </div>  
             <div class="form-group">
                 <input type="submit" value=@Localized["Create"] class="btn btn-default" />
             </div>
