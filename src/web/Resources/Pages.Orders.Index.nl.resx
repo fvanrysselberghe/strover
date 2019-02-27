@@ -147,4 +147,7 @@
   <data name="Export" xml:space="preserve">
     <value>Exporteren</value>
   </data>
+  <data name="Below you find an overview of all orders that you've created. By clicking the pay-button below the orders, you can pay the open amount on all unpaid orders." xml:space="preserve">
+    <value>Hieronder vind je een overzicht van alle bestellingen die je hebt aangemaakt. Via de betaal-knop kan je het totaal bedrag van al je openstaande bestellingen in een keer betalen. Je hoeft dus niet elke bestelling apart te betalen.</value>
+  </data>
 </root>
