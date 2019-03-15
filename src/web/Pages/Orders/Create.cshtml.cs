@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Options;
 using Strover.Models;
 
 namespace Strover.Pages.Orders
@@ -15,16 +16,23 @@ namespace Strover.Pages.Orders
         private readonly Strover.Models.DataStoreContext _context;
         private readonly Strover.Application.Interfaces.IOrderService _service;
 
+        private readonly ShopOptions _configuration;
+
         public CreateModel(Strover.Models.DataStoreContext context,
-                            Strover.Application.Interfaces.IOrderService service)
+                            Strover.Application.Interfaces.IOrderService service,
+                            IOptions<ShopOptions> config)
         {
             _context = context;
             _service = service;
+            _configuration = config.Value;
         }
 
 
         public IActionResult OnGet()
         {
+            if (_configuration.Closed)
+                return RedirectToPage("Closed");
+
             //View like in the standard ordering leaflets, i.e. lines for each product.
             //We therefore create dummy order lines for each product
             var products = _context.Product.OrderBy(product => product.SequenceNumber).ToArray();

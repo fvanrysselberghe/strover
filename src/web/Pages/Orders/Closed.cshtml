@@ -1,0 +1,13 @@
+@page
+@model Strover.Pages.Orders.ClosedModel
+
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localized
+
+@{
+    ViewData["Title"] = @Localized["Closed"];
+}
+
+<h2>@Localized["Closed"]</h2>
+<div>It is no longer possible to create new orders. The deadline of this action has been reached. Thank you for your understanding</div>
+
+<a asp-page="./Index">Back to List</a>
