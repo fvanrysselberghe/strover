@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +19,6 @@ using Microsoft.AspNetCore.Http;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Strover
@@ -78,7 +78,7 @@ namespace Strover
 
             services.AddLocalization(localizationOptions => localizationOptions.ResourcesPath = "Resources");
 
-            services.AddMvc()
+            services.AddRazorPages()
                 .AddRazorPagesOptions(options =>
                {
                    options.Conventions.AuthorizePage("/Index");
@@ -91,8 +91,7 @@ namespace Strover
                .AddViewLocalization(
                     LanguageViewLocationExpanderFormat.Suffix,
                     opts => { opts.ResourcesPath = "Resources"; })
-                .AddDataAnnotationsLocalization()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                .AddDataAnnotationsLocalization();
 
 
             services.AddTransient<IOrderRepository, OrderRepository>();
@@ -132,7 +131,7 @@ namespace Strover
 
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider services)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
         {
             if (env.IsDevelopment())
             {
@@ -158,12 +157,14 @@ namespace Strover
                options.SupportedUICultures = supportedCultures;
            });
 
+            app.UseRouting();
+
             app.UseAuthentication();
-            app.UseMvc(routes =>
+
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                endpoints.MapControllers();
+                endpoints.MapRazorPages();
             });
 
             CreateRoles(services).Wait();
