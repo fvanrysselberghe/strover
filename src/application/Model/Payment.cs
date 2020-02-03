@@ -14,8 +14,8 @@ namespace Strover.Models
         public PaymentState State { get; set; }
 
         public decimal Amount { get; set; }
-
+        public System.DateTime ExecutionDate {get; set; }
+        
         public virtual ICollection<OrderPayments> OrderPayments { get; set; }
-
     }
 }
