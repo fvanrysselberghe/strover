@@ -22,7 +22,7 @@ namespace Strover.Models
 
         private ulong Truncate(ulong value)
         {
-            return value;
+            return value % 10000000000;
         }
 
         /// <summary>
