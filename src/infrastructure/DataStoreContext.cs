@@ -19,6 +19,15 @@ namespace Strover.Models
             // Add your customizations after calling base.OnModelCreating(builder);
 
             builder.Entity<OrderPayments>().HasKey(joining => new { joining.OrderId, joining.PaymentId });
+
+            // EntityFrameworkCore < 3.0 compatibility)
+            builder.Entity<Address>().Property(a => a.ID).ValueGeneratedOnAdd();
+            builder.Entity<Customer>().Property(c => c.ID).ValueGeneratedOnAdd();
+            builder.Entity<DeliveryMethod>().Property(d => d.DeliveryMethodId).ValueGeneratedOnAdd();
+            builder.Entity<Order>().Property(o => o.OrderId).ValueGeneratedOnAdd();
+            builder.Entity<OrderedItem>().Property(i => i.OrderedItemId).ValueGeneratedOnAdd();
+            builder.Entity<Payment>().Property(p => p.ID).ValueGeneratedOnAdd();
+            builder.Entity<Product>().Property(p => p.ProductId).ValueGeneratedOnAdd();
         }
         public DbSet<Order> Order { get; set; }
         public DbSet<Product> Product { get; set; }
