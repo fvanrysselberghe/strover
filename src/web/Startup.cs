@@ -55,6 +55,7 @@ namespace Strover
                 //instead impose long passwords
                 options.Password.RequiredLength = 8;
             });
+
         }
 
         public void ConfigureDevelopmentServices(IServiceCollection services)
@@ -129,6 +130,7 @@ namespace Strover
 
             services.Configure<ShopOptions>(Configuration.GetSection("ShopConfiguration"));
 
+            services.AddSingleton<IStructuredReferenceFactory, EpochReferenceFactory>();
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)

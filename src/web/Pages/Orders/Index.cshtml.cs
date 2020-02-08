@@ -23,11 +23,17 @@ namespace Strover.Pages.Orders
 
         private readonly UserManager<SalesPerson> _users;
 
-        public IndexModel(IOrderRepository orderStore, DataStoreContext productStore, UserManager<SalesPerson> users)
+        private readonly IStructuredReferenceFactory _referenceFactory;
+
+        public IndexModel(IOrderRepository orderStore,
+            DataStoreContext productStore,
+            UserManager<SalesPerson> users,
+            IStructuredReferenceFactory referenceFactory)
         {
             _orderStore = orderStore;
             _context = productStore;
             _users = users;
+            _referenceFactory = referenceFactory;
         }
 
         public IList<Order> Order { get; set; } /// Orders that are active
@@ -176,7 +182,8 @@ namespace Strover.Pages.Orders
             var newPayment = new Payment()
             {
                 Amount = amountToPay,
-                State = PaymentState.Cancelled //Only switch state when the user confirmed payment
+                State = PaymentState.Cancelled, //Only switch state when the user confirmed payment
+                Reference = _referenceFactory.Create().AsPrintReference()
             };
             _context.Payment.Add(newPayment);
 
@@ -194,7 +201,10 @@ namespace Strover.Pages.Orders
             _context.SaveChanges();
 
             //redirect to payment page
-            return RedirectToPage("/Payments/Pay", new { paymentId = newPayment.ID });
+            return RedirectToPage("/Payments/Pay", new
+            {
+                paymentId = newPayment.ID
+            });
         }
 
         private ICollection<Order> GetOrdersWithoutPayment(IList<Order> ordersToCheck)

@@ -44,7 +44,7 @@ namespace Strover.Pages.Payments
 
             Beneficiary = _shopConfig.LegalName;
             AccountNumber = _shopConfig.AccountNumber;
-            Message = payment.ID;
+            Message = payment.Reference;
             Amount = payment.Amount;
 
             var qrPayloadGenerator = new EPCQRCode(
