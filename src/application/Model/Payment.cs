@@ -8,9 +8,18 @@ namespace Strover.Models
         Paid,
         Cancelled
     }
+
+    public enum PaymentMethod
+    {
+        Wire
+    }
+
     public class Payment
     {
         public string ID { get; set; }
+
+        public PaymentMethod Method { get; set; }
+
         public PaymentState State { get; set; }
 
         public decimal Amount { get; set; }
