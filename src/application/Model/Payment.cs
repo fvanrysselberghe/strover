@@ -11,7 +11,7 @@ namespace Strover.Models
 
     public enum PaymentMethod
     {
-        Wire
+        WireTransfer
     }
 
     public class Payment
