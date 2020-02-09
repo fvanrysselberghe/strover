@@ -202,7 +202,7 @@ namespace Strover.Pages.Orders
             _context.SaveChanges();
 
             //redirect to payment page
-            return RedirectToPage("/Payments/Pay", new
+            return RedirectToPage("/Payments/Wiretransfer/Pay", new
             {
                 paymentId = newPayment.ID
             });
