@@ -12,16 +12,22 @@ namespace Strover.Pages
     {
         private DataStoreContext _context;
 
-        DetailsModel(DataStoreContext context)
+        public DetailsModel(DataStoreContext context)
         {
             _context = context;
         }
 
-        public IActionResult OnGet(string paymentId)
+        public Payment Payment { get; set; }
+
+        public IActionResult OnGet(string id)
         {
-            var payment = _context.Payment.Find(paymentId);
-            if (payment == null)
+            if (id == null)
                 return NotFound();
+
+            Payment = _context.Payment.Find(id);
+            if (Payment == null)
+                return NotFound();
+
             return Page();
         }
     }

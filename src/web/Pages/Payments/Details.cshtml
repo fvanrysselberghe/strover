@@ -1,4 +1,23 @@
 ﻿@page
 @model Strover.Pages.DetailsModel
 @{
+    ViewData["Title"] = "Details";
 }
+
+<h2>Details</h2>
+<div>
+  <h4>Payment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <!-- Payment details -->
+        <dt>
+            @Html.LabelFor(model => model.Payment.Reference)
+        </dt>    
+        <dd>
+            @Html.DisplayFor(model => model.Payment.Reference)
+        </dd>
+</div>
+<div>
+    <a asp-page="/Orders/Index">Back</a>
+</div>
+

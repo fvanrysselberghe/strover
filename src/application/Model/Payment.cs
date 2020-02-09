@@ -4,9 +4,9 @@ namespace Strover.Models
 {
     public enum PaymentState
     {
-        BeingProcessed,
-        Paid,
-        Cancelled
+        Cancelled = 0,
+        BeingProcessed = 1,
+        Paid = 2
     }
 
     public enum PaymentMethod

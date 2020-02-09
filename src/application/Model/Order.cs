@@ -68,5 +68,20 @@ namespace Strover.Models
             }
         }
 
+        public string PaymentId
+        {
+            get
+            {
+                if (Payments == null)
+                    return "";
+
+                return (from payment in Payments
+                        where payment.Payment.State == PaymentState.Paid ||
+                        payment.Payment.State == PaymentState.BeingProcessed
+                        orderby payment.Payment.State descending
+                        select payment.Payment.ID).FirstOrDefault();
+            }
+        }
+
     }
 }
