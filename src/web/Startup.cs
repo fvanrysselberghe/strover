@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,6 +21,7 @@ using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using System.Text.Json.Serialization;
 
 namespace Strover
 {
@@ -79,6 +81,13 @@ namespace Strover
 
             services.AddLocalization(localizationOptions => localizationOptions.ResourcesPath = "Resources");
 
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
+                    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
             services.AddRazorPages()
                 .AddRazorPagesOptions(options =>
                {
