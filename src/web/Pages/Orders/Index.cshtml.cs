@@ -182,6 +182,7 @@ namespace Strover.Pages.Orders
             var newPayment = new Payment()
             {
                 Amount = amountToPay,
+                Method = PaymentMethod.WireTransfer,
                 State = PaymentState.Cancelled, //Only switch state when the user confirmed payment
                 Reference = _referenceFactory.Create().AsPrintReference()
             };
