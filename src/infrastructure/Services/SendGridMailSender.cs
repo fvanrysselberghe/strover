@@ -22,14 +22,9 @@ namespace Strover.Infrastructure.Services
         private EmailAddress Sender { get; }
 
 
-        public Task SendEmailAsync(string email, string subject, string message)
+        public async Task SendEmailAsync(string email, string subject, string message)
         {
-            return Execute(ApiKey, subject, message, email);
-        }
-
-        public Task Execute(string apiKey, string subject, string message, string email)
-        {
-            var client = new SendGridClient(apiKey);
+            var client = new SendGridClient(ApiKey);
             var msg = new SendGridMessage()
             {
                 From = Sender,
@@ -43,7 +38,7 @@ namespace Strover.Infrastructure.Services
             // See https://sendgrid.com/docs/User_Guide/Settings/tracking.html
             msg.SetClickTracking(false, false);
 
-            return client.SendEmailAsync(msg);
+            var response = await client.SendEmailAsync(msg);
         }
     }
 }
