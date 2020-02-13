@@ -38,7 +38,7 @@ namespace Strover.Pages.Products
             {
                 //although unlikely it can collide in parallel sessions
                 //We'll resolve it later, e.g. GUI
-                currentMax = _context.Product.Max(person => person.SequenceNumber);
+                currentMax = _context.Product.Max(product => product.SequenceNumber);
             }
 
             Product.SequenceNumber = ++currentMax;
