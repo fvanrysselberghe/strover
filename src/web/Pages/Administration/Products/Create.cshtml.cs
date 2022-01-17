@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Strover.Models;
 
-namespace Strover.Pages.Products
+namespace Strover.Pages.Administration.Products
 {
     public class CreateModel : PageModel
     {

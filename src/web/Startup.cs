@@ -97,6 +97,7 @@ namespace Strover
                    options.Conventions.AuthorizePage("/Payments/Wiretransfer/Index", "RequiresAdministration");
                    options.Conventions.AuthorizePage("/Payments/Wiretransfer/Paid", "RequiresAdministration");
                    options.Conventions.AuthorizeFolder("/Products", "RequiresAdministration");
+                   options.Conventions.AuthorizeFolder("/Administration", "RequiresAdministration");
                })
                .AddViewLocalization(
                     LanguageViewLocationExpanderFormat.Suffix,

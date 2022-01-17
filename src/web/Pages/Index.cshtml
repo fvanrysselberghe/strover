@@ -20,7 +20,7 @@
             <li><a asp-page="/Orders/Index">@Localized["My Orders"]</a></li>
     @if (User.Identity.IsAuthenticated && User.IsInRole(ApplicationRole.Administrator))
     {
-            <li><a asp-page="/Products/Index">@Localized["Manage products"]</a></li>
+            <li><a asp-page="/Administration/Products/Index">@Localized["Manage products"]</a></li>
             <li><a asp-page="/Payments/Wiretransfer/Index">@Localized["Manage payments"]</a></li>
     }
         </ul>

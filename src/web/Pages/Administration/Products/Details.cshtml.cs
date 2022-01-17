@@ -7,18 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Strover.Models;
 
-namespace Strover.Pages.Products
+namespace Strover.Pages.Administration.Products
 {
-    public class DeleteModel : PageModel
+    public class DetailsModel : PageModel
     {
         private readonly Strover.Models.DataStoreContext _context;
 
-        public DeleteModel(Strover.Models.DataStoreContext context)
+        public DetailsModel(Strover.Models.DataStoreContext context)
         {
             _context = context;
         }
 
-        [BindProperty]
         public Product Product { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string id)
@@ -35,24 +34,6 @@ namespace Strover.Pages.Products
                 return NotFound();
             }
             return Page();
-        }
-
-        public async Task<IActionResult> OnPostAsync(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Product = await _context.Product.FindAsync(id);
-
-            if (Product != null)
-            {
-                _context.Product.Remove(Product);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
         }
     }
 }
