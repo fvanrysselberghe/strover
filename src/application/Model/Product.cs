@@ -17,5 +17,8 @@ namespace Strover.Models
 
         public uint SequenceNumber { get; set; }
 
+        // Location of the image for this product
+        public string ImageLocation { get; set; }
+
     }
 }
