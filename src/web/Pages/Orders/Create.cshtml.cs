@@ -42,7 +42,8 @@ namespace Strover.Pages.Orders
                 ProductName = product.Name,
                 ProductId = product.ProductId,
                 Quantity = 0,
-                Price = product.Price
+                Price = product.Price,
+                ImageLocation = product.ImageLocation
             }).ToList();
 
             WillBePickedUp = false;
@@ -61,6 +62,8 @@ namespace Strover.Pages.Orders
             public uint Quantity { get; set; }
 
             public decimal Price { get; set; }
+
+            public string ImageLocation { get; set; }
         }
 
         [Required(ErrorMessage = "Name Buyer Should Be Filled")]

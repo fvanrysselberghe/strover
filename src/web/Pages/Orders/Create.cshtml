@@ -63,6 +63,7 @@
             @for (int i = 0; i < Model.ItemView.Count; ++i) {
                 <div class="form-group">
                     <label class="control-label">@Model.ItemView[i].ProductName (@Model.ItemView[i].Price EUR)</label>
+                    <img src=@Model.ItemView[i].ImageLocation/>
                     <input type="hidden" asp-for="ItemView[i].ProductName" /> 
                     <input type="hidden" asp-for="ItemView[i].ProductId"/> 
                     <input type="hidden" asp-for="ItemView[i].Price"/>                  
