@@ -15,11 +15,11 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
+
             <!-- Buyer details -->
             <div class="form-group">
                 <label asp-for="BuyerName" class="control-label"></label>
-                <input asp-for="BuyerName" class="form-control"/>
+                <input asp-for="BuyerName" class="form-control" />
                 <span asp-validation-for="BuyerName" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -28,24 +28,24 @@
                 <span asp-validation-for="BuyerPhone" class="text-danger"></span>
             </div>
             <hr />
-            
+
             <!-- delivery details -->
             <div class="form-group">
                 <label asp-for="WillBePickedUp" class="control-label"></label>
                 <input asp-for="WillBePickedUp" class="form-control" />
             </div>
-            <div class ="form-group">
+            <div class="form-group">
                 <label asp-for="WillBeDelivered" class="control-label"></label>
                 <input asp-for="WillBeDelivered" class="form-control" />
             </div>
             <div id="deliveryDetails">
                 <div class="form-group">
                     <label asp-for="DeliveryStreet" class="control-label"></label>
-                    <input asp-for="DeliveryStreet" class="form-control"/>
-                </div>  
+                    <input asp-for="DeliveryStreet" class="form-control" />
+                </div>
                 <div class="form-group">
                     <label asp-for="DeliveryHouseNumber" class="control-label"></label>
-                    <input asp-for="DeliveryHouseNumber" class="form-control"/>
+                    <input asp-for="DeliveryHouseNumber" class="form-control" />
                 </div>
                 <div class="form-group">
                     <label asp-for="DeliveryCity" class="control-label"></label>
@@ -54,25 +54,30 @@
                 <div class="form-group">
                     <label asp-for="DeliveryComments" class="control-label"></label>
                     <input asp-for="DeliveryComments" class="form-control" />
-                </div>         
+                </div>
             </div>
             <hr />
-            
-            <!-- Order selection --> 
-            <div>
-            @for (int i = 0; i < Model.ItemView.Count; ++i) {
-                <div class="form-group">
-                    <label class="control-label">@Model.ItemView[i].ProductName (@Model.ItemView[i].Price EUR)</label>
-                    <img src=@Model.ItemView[i].ImageLocation/>
-                    <input type="hidden" asp-for="ItemView[i].ProductName" /> 
-                    <input type="hidden" asp-for="ItemView[i].ProductId"/> 
-                    <input type="hidden" asp-for="ItemView[i].Price"/>                  
-                    <input asp-for="ItemView[i].Quantity" class="form-control"/>
-                    <span asp-validation-for="ItemView[i].Quantity" class="text-danger" />
-                </div>    
-            } 
+
+            <!-- Order selection -->
+            <div class="container">
+                @for (int i = 0; i < Model.ItemView.Count; ++i)
+                {
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4"><img src=@Model.ItemView[i].ImageLocation /></div>
+                        <div class="col-xs-12 col-sm-4">
+                            <label class="control-label">@Model.ItemView[i].ProductName (@Model.ItemView[i].Price
+                                EUR)</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-4"><input asp-for="ItemView[i].Quantity" class="form-control" />
+                            <span asp-validation-for="ItemView[i].Quantity" class="text-danger" />
+                        </div>
+                        <input type="hidden" asp-for="ItemView[i].ProductName" />
+                        <input type="hidden" asp-for="ItemView[i].ProductId" />
+                        <input type="hidden" asp-for="ItemView[i].Price" />
+                    </div>
+                }
                 <span asp-validation-for="ItemView" class="text-danger"></span>
-            </div>  
+            </div>
             <div class="form-group">
                 <input type="submit" value=@Localized["Create"] class="btn btn-default" />
             </div>
@@ -85,55 +90,47 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    
-    <script>
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
     $(document).ready(function () {
-        $('#WillBePickedUp').change( function(event) 
-        {
-        if (event.target.checked)
-            {
-            $('#WillBeDelivered').prop('checked', false);
-            $('#deliveryDetails').hide();
+        $('#WillBePickedUp').change(function (event) {
+            if (event.target.checked) {
+                $('#WillBeDelivered').prop('checked', false);
+                $('#deliveryDetails').hide();
             }
-        else
-            {
-            $('#WillBeDelivered').prop('checked', true);
-            $('#deliveryDetails').show();
+            else {
+                $('#WillBeDelivered').prop('checked', true);
+                $('#deliveryDetails').show();
             }
         });
     });
-    </script>
+</script>
 
-    <script>
+<script>
     $(document).ready(function () {
-        $('#WillBeDelivered').change( function(event) 
-        {
-        if (event.target.checked)
-            {
-            $('#WillBePickedUp').prop('checked', false);
-            $('#deliveryDetails').show();
+        $('#WillBeDelivered').change(function (event) {
+            if (event.target.checked) {
+                $('#WillBePickedUp').prop('checked', false);
+                $('#deliveryDetails').show();
             }
-        else
-            {
-            $('#WillBePickedUp').prop('checked', true);
-            $('#deliveryDetails').hide();
+            else {
+                $('#WillBePickedUp').prop('checked', true);
+                $('#deliveryDetails').hide();
             }
         });
     });
-    </script>
-    <script>
+</script>
+<script>
     $(document).ready(function () {
-        if ($('#WillBeDelivered').prop('checked'))
-            {
-            $('#deliveryDetails').show();    
-            }
-        else
-            {
-            $('#deliveryDetails').hide();    
-            }
+        if ($('#WillBeDelivered').prop('checked')) {
+            $('#deliveryDetails').show();
+        }
+        else {
+            $('#deliveryDetails').hide();
+        }
     });
-    </script>
+</script>
 
-    
+
 }
