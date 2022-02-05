@@ -15,7 +15,7 @@ namespace Strover.Models
         // Price of the product
         public decimal Price { get; set; }
 
-        public uint SequenceNumber { get; set; }
+        public int SequenceNumber { get; set; }
 
         // Location of the image for this product
         public string ImageLocation { get; set; }
