@@ -132,14 +132,14 @@
   <data name="Pickup details" xml:space="preserve">
     <value>Gegevens ophaling</value>
   </data>
-  <data name="Will be picked up on March 28 between 9h and 12h at kleuterschool Antoontje" xml:space="preserve">
-    <value>Wordt afgehaald op 28 maart tussen 9u en 12u in kleuterschool Antoontje</value>
+  <data name="Will be picked up on {0} at {1}" xml:space="preserve">
+    <value>Wordt afgehaald op {0} in {1}</value>
   </data>
   <data name="Delivery details" xml:space="preserve">
     <value>Gegevens levering</value>
   </data>
-  <data name="Will be delivered at home on March 28 between 9h and 13h at the address given below" xml:space="preserve">
-    <value>Wordt aan huis geleverd op 28 maart tussen 9u en 13u op onderstaand adres</value>
+  <data name="Will be delivered at home on {0} at the address given below" xml:space="preserve">
+    <value>Wordt aan huis geleverd op {0} op onderstaand adres</value>
   </data>
   <data name="Street" xml:space="preserve">
     <value>Straat</value>
