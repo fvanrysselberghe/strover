@@ -126,4 +126,10 @@
   <data name="Back to List" xml:space="preserve">
     <value>Naar overzicht</value>
   </data>
+  <data name="Will be picked up ({0}) at {1}" xml:space="preserve">
+    <value>Haalt zelf af op ({0}) in {1}</value>
+  </data>
+  <data name="Delivered at home ({0}) in {1}" xml:space="preserve">
+    <value>Levering aan huis ({0}) in {1}</value>
+  </data>
 </root>

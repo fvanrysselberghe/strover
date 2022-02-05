@@ -77,11 +77,9 @@ namespace Strover.Pages.Orders
         public string BuyerPhone { get; set; }
 
         // Group into Model
-        [Display(Name = "Will be picked up (March 28 between 9h and 12h) at kleuterschool Antoontje")]
         [BindProperty]
         public bool WillBePickedUp { get; set; }
 
-        [Display(Name = "Delivered at home (March 28 between 9h and 12h) in Sint-Antonius, Zoersel, Halle, Schilde and Westmalle")]
         [BindProperty]
         public bool WillBeDelivered { get; set; }
 
