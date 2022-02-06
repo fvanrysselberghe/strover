@@ -87,13 +87,5 @@ namespace Strover.Pages.Payments
             return RedirectToPage("/Orders/Index");
         }
 
-        public IActionResult OnGetCancel(string paymentId)
-        {
-            //We created the payment as being-processed, user pushed cancel button
-            // => safely return
-            return RedirectToPage("/Orders/Index");
-        }
-
-
     }
 }

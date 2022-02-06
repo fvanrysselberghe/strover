@@ -51,7 +51,6 @@
         <input type="hidden" asp-for="PaymentId"/>
         <input type="submit" value=@Localized["Paid"] class="btn btn-default">
     </form>
-    <a asp-page-handler="Cancel" asp-route-paymentid="@Model.PaymentId">@Localized["Cancel"]</a>
 
 @section Scripts
 {
