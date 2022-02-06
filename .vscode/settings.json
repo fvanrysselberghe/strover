@@ -1,4 +1,4 @@
 {
     "appService.defaultWebAppToDeploy": "",
-    "appService.deploySubpath": "build"
+    "appService.deploySubpath": "bld"
 }
