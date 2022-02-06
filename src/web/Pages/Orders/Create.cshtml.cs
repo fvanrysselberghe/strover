@@ -108,6 +108,8 @@ namespace Strover.Pages.Orders
             }
         }
 
+        public String DeliveryLocations => _configuration.DeliveryLocations;
+
         public String PickupPeriod
         {
             get
@@ -115,6 +117,9 @@ namespace Strover.Pages.Orders
                 return _configuration.PickupPeriod.ToString();
             }
         }
+
+        public String PickupLocations => _configuration.PickupLocations;
+
 
         [BindProperty]
         [AtLeastOneItem(ErrorMessage = "At leat one item should be selected")]

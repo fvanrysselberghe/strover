@@ -9,6 +9,9 @@ namespace Strover.Models
         public bool Closed { get; set; }
 
         public TimePeriod DeliveryPeriod { get; set; }
+
+        public string DeliveryLocations { get; set; }
         public TimePeriod PickupPeriod { get; set; }
+        public string PickupLocations { get; set; }
     }
 }
