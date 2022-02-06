@@ -33,6 +33,7 @@ namespace Strover.Pages.Orders
 
         public IList<Order> OrdersWithoutPayment { get; set; } = new List<Order>();/// Orders for which no (active) payment is available
         public IList<Order> OrdersWithPayment { get; set; } = new List<Order>(); /// Orders for which a (active) payment exists
+        public decimal AmountToPay => OrdersWithoutPayment.Sum(order => order.Cost);
 
         public async Task OnGetAsync()
         {
@@ -61,7 +62,7 @@ namespace Strover.Pages.Orders
                 return Page();
             }
 
-            decimal amountToPay = OrdersWithoutPayment.Sum(order => order.Cost);
+            decimal amountToPay = AmountToPay;
 
             //create a payment and assign to them
             var newPayment = new Payment()
