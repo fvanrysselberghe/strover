@@ -164,6 +164,11 @@ namespace Strover.Pages.Orders
             row.CreateCell(colNbr++).SetCellValue("verkoper_naam");
             row.CreateCell(colNbr++).SetCellValue("klas");
         }
+        /// <summary>
+        /// Starts the creation of a payment for our list of open orders by creating a "Pending"-payment.
+        /// Later pages may move this state to an end state (e.g. Paid, or Cancelled). 
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> OnGetPay()
         {
             //get orders which aren't paid yet
@@ -183,7 +188,7 @@ namespace Strover.Pages.Orders
             {
                 Amount = amountToPay,
                 Method = PaymentMethod.WireTransfer,
-                State = PaymentState.Cancelled, //Only switch state when the user confirmed payment
+                State = PaymentState.BeingProcessed, //Can be confirmed later
                 Reference = _referenceFactory.Create().AsPrintReference()
             };
             _context.Payment.Add(newPayment);

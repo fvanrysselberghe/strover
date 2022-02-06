@@ -34,6 +34,11 @@ namespace Strover.Pages.Payments
             _shopConfig = shopConfiguration.Value;
         }
 
+        /// <summary>
+        /// Show the payment page for a wire transfer. When we get here the payment-object is created as "BeingProcessed".
+        /// </summary>
+        /// <param name="paymentId"></param>
+        /// <returns></returns>
         public IActionResult OnGet(string paymentId)
         {
             PaymentId = paymentId;
@@ -59,10 +64,16 @@ namespace Strover.Pages.Payments
             return Page();
         }
 
+
+        /// <summary>
+        /// The user confirmed that he made the payment. Unfortunately, we can't automatically verify whether the wiretransfer was done.
+        /// Therefore we keep the current state. 
+        /// Administrators will later check the account's balance. Based on the balance they can confirm payments.
+        /// </summary>
+        /// <param name="paymentId">Identification of the payment that was paid</param>
+        /// <returns></returns>
         public IActionResult OnPost(string paymentId)
         {
-            //We created the payment as cancelled, user confirmed payment
-            //=> Switch to processing
             if (paymentId == null)
                 return NotFound();
 
@@ -70,16 +81,15 @@ namespace Strover.Pages.Payments
             if (payment == null)
                 return NotFound();
 
-            payment.State = PaymentState.BeingProcessed;
-            _store.Payment.Update(payment);
-            _store.SaveChanges();
+            //We created the payment as being-processed, user confirmed payment
+            //=> no state change, until Administrator confirms
 
             return RedirectToPage("/Orders/Index");
         }
 
         public IActionResult OnGetCancel(string paymentId)
         {
-            //We created the payment as cancelled, user bailed out
+            //We created the payment as being-processed, user pushed cancel button
             // => safely return
             return RedirectToPage("/Orders/Index");
         }
