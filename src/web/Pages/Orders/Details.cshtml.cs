@@ -6,6 +6,7 @@ using Strover.Models;
 using Strover.Application.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Strover.Infrastructure.Data;
+using Microsoft.Extensions.Options;
 
 namespace Strover.Pages.Orders
 {
@@ -13,15 +14,20 @@ namespace Strover.Pages.Orders
     {
         private readonly Strover.Application.Interfaces.IOrderRepository _orders;
         private readonly UserManager<SalesPerson> _users;
-
-        public DetailsModel(IOrderRepository orders, UserManager<SalesPerson> users)
+        private readonly ShopOptions _configuration;
+        public DetailsModel(IOrderRepository orders, UserManager<SalesPerson> users, IOptions<ShopOptions> shopConfig)
         {
             _orders = orders;
             _users = users;
+            _configuration = shopConfig.Value;
         }
 
         public Order Order { get; set; }
         public SalesPerson Seller { get; set; }
+
+        public String DeliveryPeriod => _configuration.DeliveryPeriod.ToString();
+        public String PickupLocations => _configuration.PickupLocations;
+        public String PickupPeriod => _configuration.PickupPeriod.ToString();
 
         public async Task<IActionResult> OnGetAsync(string id)
         {

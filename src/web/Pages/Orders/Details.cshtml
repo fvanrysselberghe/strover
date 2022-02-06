@@ -34,7 +34,7 @@
               @Localized["Pickup details"] 
         </dt>
         <dd>
-            @Localized["Will be picked up on {0} at {1}", "March 28 between 9h and 12h", "kleuterschool Antoontje"]
+            @Localized["Will be picked up on {0} at {1}", @Model.PickupPeriod, @Model.PickupLocations]
         </dd>  
         }
         else
@@ -43,7 +43,7 @@
             @Localized["Delivery details"]
         </dt>
         <dd>
-            @Localized["Will be delivered at home on {0} at the address given below", "March 28 between 9h and 13h"]
+            @Localized["Will be delivered at home on {0} at the address given below", @Model.DeliveryPeriod]
         </dd>  
         <dt>
             @Localized["Street"]
