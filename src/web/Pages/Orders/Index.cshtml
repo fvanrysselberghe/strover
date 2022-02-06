@@ -77,4 +77,53 @@
         </tr>
     </tbody>
 </table>
+
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Localized["Name"]
+                </th>
+                <th>
+                    @Localized["Number of items"]
+                </th>
+                <th>
+                    @Localized["Cost"]
+                </th>
+                <th>
+                    @Localized["State payment"]
+                </th>
+                <th/>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Order) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Buyer.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderedQuantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                @if (item.PaymentState == PaymentState.Paid){
+                    <a asp-page="/Payments/Details" asp-route-id="@item.PaymentId">@Html.Raw("Paid")</a>;    
+                }
+                else if (item.PaymentState == PaymentState.BeingProcessed){
+                    <a asp-page="/Payments/Details" asp-route-id="@item.PaymentId">@Html.Raw("Pending")</a>;                    
+                }
+                else {
+                    @Html.Raw("")
+                }
+            </td>
+            <td>
+                <a asp-page="./Details" asp-route-id="@item.OrderId">@Localized["Details"]</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
 <a asp-page-handler="Export">@Localized["Export"]</a>
