@@ -100,6 +100,22 @@ namespace Strover.Pages.Orders
         [BindProperty]
         public String DeliveryComments { get; set; }
 
+        public String DeliveryPeriod
+        {
+            get
+            {
+                return _configuration.DeliveryPeriod.ToString();
+            }
+        }
+
+        public String PickupPeriod
+        {
+            get
+            {
+                return _configuration.PickupPeriod.ToString();
+            }
+        }
+
         [BindProperty]
         [AtLeastOneItem(ErrorMessage = "At leat one item should be selected")]
         public List<ItemModel> ItemView { get; set; }

@@ -7,5 +7,8 @@ namespace Strover.Models
         public string Email { get; set; }
 
         public bool Closed { get; set; }
+
+        public TimePeriod DeliveryPeriod { get; set; }
+        public TimePeriod PickupPeriod { get; set; }
     }
 }

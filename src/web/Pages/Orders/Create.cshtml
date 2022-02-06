@@ -31,12 +31,12 @@
 
             <!-- delivery details -->
             <div class="form-group">
-                <label class="control-label">@Localized["Will be picked up ({0}) at {1}", "March 28 between 9h and 12h", "kleuterschool Antoontje"]</label>
+                <label class="control-label">@Localized["Will be picked up ({0}) at {1}", @Model.DeliveryPeriod, "kleuterschool Antoontje"]</label>
                 <input asp-for="WillBePickedUp" class="form-control" />
             </div>
             <div class="form-group">
         
-                <label class="control-label">@Localized["Delivered at home ({0}) in {1}", "March 28 between 9h and 13h", "Sint-Antonius, Zoersel, Halle, Schilde and Westmalle"]</label>
+                <label class="control-label">@Localized["Delivered at home ({0}) in {1}", @Model.PickupPeriod, "Sint-Antonius, Zoersel, Halle, Schilde and Westmalle"]</label>
                 <input asp-for="WillBeDelivered" class="form-control" />
             </div>
             <div id="deliveryDetails">
