@@ -25,9 +25,6 @@
                 <th>
                     @Localized["Cost"]
                 </th>
-                <th>
-                    @Localized["State payment"]
-                </th>
                 <th/>
         </tr>
     </thead>
@@ -44,33 +41,17 @@
                 @Html.DisplayFor(modelItem => item.Cost)
             </td>
             <td>
-                @if (item.PaymentState == PaymentState.Paid){
-                    <a asp-page="/Payments/Details" asp-route-id="@item.PaymentId">@Html.Raw("Paid")</a>;    
-                }
-                else if (item.PaymentState == PaymentState.BeingProcessed){
-                    <a asp-page="/Payments/Details" asp-route-id="@item.PaymentId">@Html.Raw("Pending")</a>;                    
-                }
-                else {
-                    @Html.Raw("")
-                }
-            </td>
-            <td>
                 <a asp-page="./Details" asp-route-id="@item.OrderId">@Localized["Details"]</a> |
                 <a asp-page="./Delete" asp-route-id="@item.OrderId">@Localized["Delete"]</a>
             </td>
         </tr>
 }
-<tr>
+        <tr>
             <td/>
-                
             <td/>
-                
-            <td/>
-                
             <td>
                @Model.AmountToPay 
             </td>
-               
             <td>
                 <a asp-page-handler="Pay">@Localized["Pay"]</a>
             </td>
