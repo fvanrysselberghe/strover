@@ -32,7 +32,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Order) {
+@foreach (var item in Model.OrdersWithoutPayment) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Buyer.Name)
@@ -97,7 +97,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Order) {
+@foreach (var item in Model.OrdersWithPayment) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Buyer.Name)

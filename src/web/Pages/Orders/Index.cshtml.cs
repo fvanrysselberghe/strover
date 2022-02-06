@@ -31,11 +31,13 @@ namespace Strover.Pages.Orders
             _referenceFactory = referenceFactory;
         }
 
-        public IList<Order> Order { get; set; } /// Orders that are active
+        public IList<Order> OrdersWithoutPayment { get; set; } = new List<Order>();/// Orders for which no (active) payment is available
+        public IList<Order> OrdersWithPayment { get; set; } = new List<Order>(); /// Orders for which a (active) payment exists
 
         public async Task OnGetAsync()
         {
-            Order = await PopulateMyListOfOrders();
+            var allOrder = await PopulateMyListOfOrders();
+            AssignOrders(allOrder);
         }
 
         private async Task<IList<Order>> PopulateMyListOfOrders()
@@ -52,15 +54,14 @@ namespace Strover.Pages.Orders
         {
             //get orders which aren't paid yet
             var myOrders = await PopulateMyListOfOrders();
-            ICollection<Order> ordersWithoutPayment = GetOrdersWithoutPayment(myOrders);
+            AssignOrders(myOrders);
 
-            if (ordersWithoutPayment.Count == 0)
+            if (OrdersWithoutPayment.Count == 0)
             {
-                Order = await PopulateMyListOfOrders();
                 return Page();
             }
 
-            decimal amountToPay = ordersWithoutPayment.Sum(order => order.Cost);
+            decimal amountToPay = OrdersWithoutPayment.Sum(order => order.Cost);
 
             //create a payment and assign to them
             var newPayment = new Payment()
@@ -73,7 +74,7 @@ namespace Strover.Pages.Orders
             _context.Payment.Add(newPayment);
 
             //store the orders with their payment;
-            foreach (var order in ordersWithoutPayment)
+            foreach (var order in OrdersWithoutPayment)
             {
                 var orderPaymentLink = new OrderPayments()
                 {
@@ -92,19 +93,18 @@ namespace Strover.Pages.Orders
             });
         }
 
-        private ICollection<Order> GetOrdersWithoutPayment(IList<Order> ordersToCheck)
+        private void AssignOrders(IList<Order> ordersToCheck)
         {
-            List<Order> withoutPayment = new List<Order>();
-
             foreach (var order in ordersToCheck)
             {
                 if (order.Payments == null
                 || order.Payments.Count() == 0
                 || order.Payments.All(orderPayment => orderPayment.Payment.State == PaymentState.Cancelled))
-                    withoutPayment.Add(order);
+                    OrdersWithoutPayment.Add(order);
+                else
+                    OrdersWithPayment.Add(order);
             }
 
-            return withoutPayment;
         }
     }
 
