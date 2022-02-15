@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 using Strover.Application;
 using Strover.Models;
 
-namespace Strover.Pages.Payments
+namespace Strover.Pages.Payments.Wiretransfer
 {
     public class PayModel : PageModel
     {
