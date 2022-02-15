@@ -1,0 +1,116 @@
+@page
+@model Strover.Pages.Administration.Orders.DetailsModel
+
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localized
+
+@{
+    ViewData["Title"] = @Localized["Details"];
+}
+
+<h2>@Localized["Details"]</h2>
+
+<div>
+    <h4>@Localized["Order"]</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <!-- Sales details -->
+        <dt>
+            <label>Reference</label>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Reference)
+        </dd>
+        <!-- Buyer details -->
+        <dt>
+            @Localized["Name"]
+        </dt>    
+        <dd>
+            @Html.DisplayFor(model => model.Order.Buyer.Name)
+        </dd>
+        <dt>
+            @Localized["Telephone number"]
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.Buyer.TelephoneNumber)
+        </dd>
+        <hr />
+
+        @if (Model.Order.Delivery.DeliveryType == Strover.Models.DeliveryType.Pickup)
+        {
+        <dt>
+              @Localized["Pickup details"] 
+        </dt>
+        <dd>
+            @Localized["Will be picked up on {0} at {1}", @Model.PickupPeriod, @Model.PickupLocations]
+        </dd>  
+        }
+        else
+        {
+        <dt>
+            @Localized["Delivery details"]
+        </dt>
+        <dd>
+            @Localized["Will be delivered at home on {0} at the address given below", @Model.DeliveryPeriod]
+        </dd>  
+        <dt>
+            @Localized["Street"]
+        </dt>    
+        <dd>
+            @Html.DisplayFor(model => model.Order.Delivery.DeliveryAddress.Street)
+        </dd>
+        <dt>
+            @Localized["House number"]
+        </dt>    
+        <dd>
+            @Html.DisplayFor(model => model.Order.Delivery.DeliveryAddress.Number)
+        </dd>
+        <dt>
+            @Localized["City"]
+        </dt>    
+        <dd>
+            @Html.DisplayFor(model => model.Order.Delivery.DeliveryAddress.City)
+        </dd>
+        <dt>
+            @Localized["Comments"]
+        </dt>    
+        <dd>
+            @Html.DisplayFor(model => model.Order.Delivery.Comments)
+        </dd>
+        }
+        <hr />
+
+        <!-- Order selection --> 
+        @foreach (var orderedItem in Model.Order.OrderedItems.OrderBy(item => item.Product.SequenceNumber)) {
+            <dt>
+                @orderedItem.Product.Name
+            </dt>
+            <dd>
+                @orderedItem.Quantity (@orderedItem.Product.Price eur/stuk)
+            </dd>
+        }
+
+        <dt>
+            @Localized["Total"] 
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.Cost) euro
+        </dd>
+        <hr />
+        <dt>
+            @Localized["Name seller"]
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Seller.Name)
+        </dd>
+         <dt>
+            @Localized["Class"]
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Seller.Class)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <a asp-page="./Index">@Localized["Back to List"]</a>
+</div>
