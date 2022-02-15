@@ -4,12 +4,27 @@
     ViewData["Title"] = "Details";
 }
 
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localized
+
 <h2>Details</h2>
 <div>
   <h4>Payment</h4>
     <hr />
+        @Localized["Make a wire transfer using following information:"]
     <dl class="dl-horizontal">
         <!-- Payment details -->
+        <dt>
+            @Html.LabelFor(model => model.Beneficiary)
+        </dt>    
+        <dd>
+            @Html.DisplayFor(model => model.Beneficiary)
+        </dd>
+        <dt>
+            @Html.LabelFor(model => model.Payment.Amount)
+        </dt>    
+        <dd>
+            @Html.DisplayFor(model => model.Payment.Amount)
+        </dd>
         <dt>
             @Html.LabelFor(model => model.Payment.Reference)
         </dt>    
