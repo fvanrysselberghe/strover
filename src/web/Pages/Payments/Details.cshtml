@@ -1,5 +1,5 @@
 ﻿@page
-@model Strover.Pages.DetailsModel
+@model Strover.Pages.Payments.DetailsModel
 @{
     ViewData["Title"] = "Details";
 }
@@ -20,16 +20,16 @@
             @Html.DisplayFor(model => model.Beneficiary)
         </dd>
         <dt>
-            @Html.LabelFor(model => model.Payment.Amount)
+            @Html.LabelFor(model => model.Amount)
         </dt>    
         <dd>
-            @Html.DisplayFor(model => model.Payment.Amount)
+            @Html.DisplayFor(model => model.Amount)
         </dd>
         <dt>
-            @Html.LabelFor(model => model.Payment.Reference)
+            @Html.LabelFor(model => model.Reference)
         </dt>    
         <dd>
-            @Html.DisplayFor(model => model.Payment.Reference)
+            @Html.DisplayFor(model => model.Reference)
         </dd>
 </div>
 <div>
