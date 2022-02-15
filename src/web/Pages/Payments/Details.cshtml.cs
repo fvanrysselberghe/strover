@@ -22,7 +22,7 @@ namespace Strover.Pages.Payments
             _config = shopConfiguration.Value;
         }
 
-        public Payment Payment { get; set; }
+        private Payment Payment { get; set; }
 
         [Display(Name = "Beneficiary")]
         public String Beneficiary => _config.AccountNumber;
