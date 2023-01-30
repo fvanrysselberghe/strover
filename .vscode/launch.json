@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/src/web/bin/Debug/net6.0/web.dll",
+            "program": "${workspaceFolder}/src/web/bin/Debug/net7.0/web.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/web",
             "stopAtEntry": false,
