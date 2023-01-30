@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
@@ -28,10 +30,16 @@ namespace Strover.Pages.Payments.Wiretransfer
 
         private readonly DataStoreContext _store;
 
-        public PayModel(DataStoreContext paymentStore, IOptions<ShopOptions> shopConfiguration)
+        private readonly Microsoft.AspNetCore.Identity.UI.Services.IEmailSender _mailClient;
+
+        private readonly UserManager<IdentityUser> _users;
+
+        public PayModel(DataStoreContext paymentStore, IOptions<ShopOptions> shopConfiguration, UserManager<IdentityUser> users, IEmailSender mailClient)
         {
             _store = paymentStore;
             _shopConfig = shopConfiguration.Value;
+            _users = users;
+            _mailClient = mailClient;
         }
 
         /// <summary>
@@ -46,6 +54,8 @@ namespace Strover.Pages.Payments.Wiretransfer
 
             if (payment == null)
                 return NotFound();
+
+            InformAboutWiretransferLimitations(payment);
 
             Beneficiary = _shopConfig.LegalName;
             AccountNumber = _shopConfig.AccountNumber;
@@ -85,6 +95,23 @@ namespace Strover.Pages.Payments.Wiretransfer
             //=> no state change, until Administrator confirms
 
             return RedirectToPage("/Orders/Index");
+        }
+
+        /// <summary>
+        /// Webshop users expect immediate feedback on their payments. Unfortunately the cheap wiretransfers don't support this
+        /// therefore we allow users to send a confirmation to the one paying that confirms the payment attempt. 
+        /// It also explains the  manual validation process. 
+        /// </summary>
+        public async void InformAboutWiretransferLimitations(Payment payment)
+        {
+            var user = await _users.FindByNameAsync(userName: User.Identity.Name);
+            if (user == null)
+                return;
+
+            _mailClient.SendEmailAsync(
+                user.Email,
+                "Bedankt voor je bestelling",
+                "Dummy tekst");
         }
 
     }
