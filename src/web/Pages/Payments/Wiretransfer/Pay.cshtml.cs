@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
 using Strover.Application;
+using Strover.Infrastructure.Data;
 using Strover.Models;
 
 namespace Strover.Pages.Payments.Wiretransfer
@@ -32,9 +33,9 @@ namespace Strover.Pages.Payments.Wiretransfer
 
         private readonly Microsoft.AspNetCore.Identity.UI.Services.IEmailSender _mailClient;
 
-        private readonly UserManager<IdentityUser> _users;
+        private readonly UserManager<SalesPerson> _users;
 
-        public PayModel(DataStoreContext paymentStore, IOptions<ShopOptions> shopConfiguration, UserManager<IdentityUser> users, IEmailSender mailClient)
+        public PayModel(DataStoreContext paymentStore, IOptions<ShopOptions> shopConfiguration, UserManager<SalesPerson> users, IEmailSender mailClient)
         {
             _store = paymentStore;
             _shopConfig = shopConfiguration.Value;
