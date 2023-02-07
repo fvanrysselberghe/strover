@@ -13,5 +13,8 @@ namespace Strover.Models
         public string DeliveryLocations { get; set; }
         public TimePeriod PickupPeriod { get; set; }
         public string PickupLocations { get; set; }
+
+        public string WireTransferText { get; set; }
+
     }
 }

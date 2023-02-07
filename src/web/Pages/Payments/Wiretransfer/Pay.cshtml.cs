@@ -56,7 +56,9 @@ namespace Strover.Pages.Payments.Wiretransfer
             if (payment == null)
                 return NotFound();
 
-            InformAboutWiretransferLimitations(payment);
+            if (!string.IsNullOrEmpty(_shopConfig.WireTransferText))
+                InformAboutWiretransferLimitations(payment, _shopConfig.WireTransferText);
+
 
             Beneficiary = _shopConfig.LegalName;
             AccountNumber = _shopConfig.AccountNumber;
@@ -103,7 +105,7 @@ namespace Strover.Pages.Payments.Wiretransfer
         /// therefore we allow users to send a confirmation to the one paying that confirms the payment attempt. 
         /// It also explains the  manual validation process. 
         /// </summary>
-        public async void InformAboutWiretransferLimitations(Payment payment)
+        public async void InformAboutWiretransferLimitations(Payment payment, string text)
         {
             var user = await _users.FindByNameAsync(userName: User.Identity.Name);
             if (user == null)
@@ -112,7 +114,7 @@ namespace Strover.Pages.Payments.Wiretransfer
             _mailClient.SendEmailAsync(
                 user.Email,
                 "Bedankt voor je bestelling",
-                "Dummy tekst");
+                text);
         }
 
     }
