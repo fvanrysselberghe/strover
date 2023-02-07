@@ -10,6 +10,7 @@
     <PackageReference Include="Microsoft.EntityframeworkCore.SqlServer" Version="7.0.2" />
     <PackageReference Include="Microsoft.EntityframeworkCore.Tools" Version="7.0.2" />
     <PackageReference Include="sendgrid" Version="9.12.6" />
+    <PackageReference Include="sib_api_v3_sdk" Version="3.3.0" />
   </ItemGroup>
 
   <PropertyGroup>
